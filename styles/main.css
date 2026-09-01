@@ -1,0 +1,141 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+header {
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 10%;
+}
+
+.logo {
+    height: 50px;
+    display: block; 
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    gap: 30px;
+    font-size: 18px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #777777;
+}
+
+.nav-links a:hover {
+    color: #000;
+}
+
+.carousel-img {
+    width: 100%;
+    height: auto;
+}
+
+
+#home {
+    text-align: center;
+    padding: 60px 10%;
+}
+
+#home h1 {
+    font-size: 40px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 50px;
+}
+
+#home p {
+    color: #4b5563;
+    line-height: 2;
+}
+
+#services {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10%;
+    margin-bottom: 100px;
+}
+
+.card {
+    border-radius: 20px;
+    width: 300px;
+    text-align: center;
+}
+
+.card-header img {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+}
+
+.card-tag {
+    background-color: #eee;
+    color: #333;
+    font-size: 12px;
+}
+
+.card-text {
+    font-size: 14px;
+    color: #555;
+    text-align: justify;
+}
+
+#appointment {
+    background-color: #f5f5f5; 
+    padding: 30px;         
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+#appointment p {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.appointment-btn {
+    background-color: #2563eb;
+    border-radius: 20px;
+    padding: 10px 20px;          
+    text-align: center;
+    font-size: 25px;
+    text-decoration: none;
+    color: #fff;
+}
+
+footer {
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 10%;
+}
+
+.about-container {
+    align-items: center;
+    padding: 50px 10%;
+    
+}
+
+.about-section {
+    text-align: center;
+}
+
+.about-section p {
+    line-height: 2;
+    margin-bottom: 50px;
+}
+
+.values-list {
+    list-style-type: none;
+}
