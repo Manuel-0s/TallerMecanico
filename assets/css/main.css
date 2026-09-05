@@ -1,0 +1,9 @@
+header {
+    margin-bottom: 6rem;
+}
+
+.card-box {
+    width: 100%;
+    max-width: 500px;
+    padding: 2.5rem;
+}

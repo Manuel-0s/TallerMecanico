@@ -4,70 +4,167 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taller Mecánico</title>
-    <link rel="stylesheet" href="styles/main.css">
-     <!-- Bootstrap 5.3 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+
 </head>
 <body>
     
-    <header>
-        <a href="#"><img src="images/logo/main-logo.png" alt="Logo del Taller Mecánico" class="logo"></a>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <header class="bg-light py-3">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="assets/images/logos/logo.png" alt="Logo del Taller Mecánico" height="40">
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido" aria-controls="navbarContenido" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <div class="collapse navbar-collapse" id="navbarContenido">
+                    <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Inicio</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="service.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Servicios
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Mantenimiento Preventivo</a></li>
-                                <li><a class="dropdown-item" href="#">Reparación Mecánica</a></li>
-                                <li><a class="dropdown-item" href="#">Lavado y Pulido</a></li>
+                                <li><a class="dropdown-item" href="#">Reparación</a></li>
+                                <li><a class="dropdown-item" href="#">Mantenimiento</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Lavado</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                         <li class="nav-item">
                             <a class="nav-link" href="#">Nosotros</a>
                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="#">Contacto</a>
+                        </li>
                     </ul>
-                    <form class="d-flex" role="search">
-                        <button class="btn btn-primary" type="submit">Acceder</button>
-                    </form>
+                    <div>
+                        <a class="btn btn-primary" href="pages/login.html"><img src="assets/images/icons/user.svg" alt="usuario" width="25" class="me-2">Acceder</a>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
 
-    <section>
-        <img class="carousel-img" src="images/carousel/slide-1.jpg">
-    </section>
-
-    <section id="appointment">
-        <p>Elige el horario que mejor te convenga y recibe atención personalizada y sin esperas.</p>
-        <a class="appointment-btn" href="#">Agendar Cita</a>
-    </section>
-    
     <main>
-        <section id="home">
-            <h1>Servicio Automotriz</h1>
-            <p>Soluciones integrales de mantenimiento preventivo, mecánica especializada y detallado automotriz con tecnología de diagnóstico avanzada y personal certificado. Nos enfocamos en maximizar el rendimiento, la durabilidad y la seguridad de tu vehículo mediante procesos estandarizados, refacciones de calidad original y atención transparente en cada servicio.</p>
-        </section>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-7">
+                    <section class="text-start">
+                        <h1 class="display-3"><b>Bienvenido a nuestro Taller Mecánico</b></h1>
+                        <p class="lead py-3">Ofrecemos servicios de reparación y mantenimiento de vehículos.</p>
+                        <a href="#appointment" class="btn btn-outline-primary btn-lg">Agendar Cita</a>
+                    </section>
+                </div>
+                <div class="col-5">
+                    <div class="container text-center py-4">
+                        <div class="row g-5">
+                            <div class="col p-3 rounded-4 shadow-sm text-center d-flex flex-column align-items-center">                                    
+                                <img src="assets/images/icons/star.svg" width="45" height="45" class="mb-2">
+                                <h3 class="fw-bold mb-2">+5</h3>
+                                <span class="badge text-primary border px-2 py-2 rounded-pill">
+                                    Años de Experiencia
+                                </span>
+                            </div>
+                            <div class="col p-3 rounded-4 shadow-sm text-center d-flex flex-column align-items-center">                                    
+                                <img src="assets/images/icons/star.svg" width="45" height="45" class="mb-2">
+                                <h3 class="fw-bold mb-2">+5</h3>
+                                <span class="badge text-primary border px-2 py-2 rounded-pill">
+                                    Años de Experiencia
+                                </span>
+                            </div>
+                            <div class="col p-3 rounded-4 shadow-sm text-center d-flex flex-column align-items-center">                                    
+                                <img src="assets/images/icons/star.svg" width="45" height="45" class="mb-2">
+                                <h3 class="fw-bold mb-2">+5</h3>
+                                <span class="badge text-primary border px-2 py-2 rounded-pill">
+                                    Años de Experiencia
+                                </span>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div> 
+
+            <div class="row">
+                <div class="col-12 py-5 text-center">
+                    <h2 class="display-5"><b>Nuestros Servicios</b></h2>
+                    <p class="text-muted">Soluciones integrales para mantener tu auto en perfecto estado.</p>
+                </div>
+            </div>
+
+            <div class="row align-items-center py-4" data-aos="fade-right">       
+                <div class="col-md-6">
+                    <img src="assets/images/home/service-repair.jpg" class="img-fluid w-100 object-fit-cover rounded-4" alt="Servicio de reparacion de vehiculos" >
+                </div>
+                <div class="col-md-6 ps-md-5 text-start">
+                    <h2><b>Diagnóstico y Reparación Mecánica</b></h2>
+                    <p class="py-3 text-secondary">Solucionamos fallas de motor, transmisión, suspensión y frenos utilizando herramientas de escaneo computarizado de última generación. Recupera la potencia y confiabilidad de tu vehículo con refacciones de calidad certificada.</p>        
+                    <a class="icon-link icon-link-hover" href="#">Conocer más
+                        <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
+                            <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                        </svg>
+                    </a>                    
+                </div>    
+            </div>
+
+            <div class="row align-items-center py-5" data-aos="fade-left">       
+                <div class="col-md-6 ps-md-5 text-start">
+                    <h2><b>Mantenimiento Preventivo</b></h2>
+                    <p class="py-3 text-secondary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet non saepe esse soluta animi, itaque odio laboriosam tenetur nisi! Ipsa autem, explicabo quae optio voluptatem illo nostrum sequi doloribus consectetur!</p>        
+                    <a class="icon-link icon-link-hover" href="#">Conocer más
+                        <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
+                            <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                        </svg>
+                    </a>               
+                </div>    
+                <div class="col-md-6">
+                    <img src="assets/images/home/service-maintenance.jpg" class="img-fluid w-100 object-fit-cover rounded-4" alt="Servicio de reparacion de vehiculos" >
+                </div>
+            </div>
+
+            <div class="row align-items-center py-5" data-aos="fade-right">        
+                <div class="col-md-6">
+                    <img src="assets/images/home/service-car-wash.jpg" class="img-fluid w-100 object-fit-cover rounded-4" alt="Servicio de reparacion de vehiculos" >
+                </div>
+                <div class="col-md-6 ps-md-5 text-start">
+                    <h2><b>Lavado y Detallado</b></h2>
+                    <p class="py-3">
+                        Tratamiento estético interior y exterior con productos de grado profesional. Incluye desmanchado profundo de tapicería, descontaminado de pintura, pulido y encerado cerámico para proteger el brillo de la carrocería.                  
+                    </p>        
+                    <a class="icon-link icon-link-hover" href="#">Conocer más
+                         <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
+                            <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                        </svg>
+                    </a>               
+                </div>    
+            </div>
+        </div>
     </main>
 
-     <footer>
-        <div class="footer-brand">
-            <h3>Taller Mecánico</h3>
-            <p>Cuidado profesional y especializado para tu vehículo.</p>
+    <footer class="bg-light py-4 border-top">
+        <div class="container">
+            <div class="row align-items-center gy-2">      
+                <div class="col-12 col-md-6 text-center text-md-start">
+                    <p class="text-muted mb-0 small">&copy; 2026 Taller Mecánico. Todos los derechos reservados.</p>
+                </div>
+
+                <div class="col-12 col-md-6 text-center text-md-end">
+                    <span class="text-muted small me-3">Celaya, Guanajuato</span>
+                    <a href="#" class="text-decoration-none text-muted small">Política de Privacidad</a>
+                </div>
+            </div>
         </div>
-        <p>&copy; 2026 Taller Mecánico. Todos los derechos reservados.</p>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </body>
+<script>AOS.init();</script>
 </html>
