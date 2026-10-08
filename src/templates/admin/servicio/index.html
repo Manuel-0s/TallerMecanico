@@ -1,0 +1,49 @@
+<div class="row align-items-center mb-4">
+    <div class="col-12 col-md-9 mb-3 mb-md-0">
+        <h3 class="fw-bold mb-1">Servicios</h3>
+        <p class="text-muted mb-0">
+            Administra el catálogo de servicios, modifica precios base y gestiona la disponibilidad para las citas del taller.
+        </p>
+    </div>
+    <div class="col-12 col-md-3 text-md-end">
+        <a href="servicio.php?accion=create" class="btn btn-success">
+            <i class="fa-solid fa-plus"></i> Agregar
+        </a>
+    </div>
+</div>
+
+<section class="card shadow-sm border-0 mb-4">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Servicio</th>
+                    <th scope="col">Descipción</th>
+                    <th scope="col">Costo</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <?php foreach ($servicios as $servicio): ?>
+                <tr>
+                    <th scope="row"><?php echo $servicio['id_servicio']; ?></th>
+                    <td><?php echo $servicio['servicio']; ?></td>
+                    <td><?php echo $servicio['descripcion']; ?></td>
+                    <td>$<?php echo $servicio['precio_base']; ?></td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic outlined example">
+                            <a href="servicio.php?accion=update&id=<?php echo $servicio['id_servicio']; ?>" type="button" class="btn btn-outline-primary btn-sm">
+                                <i class="fa-solid fa-pen-to-square"></i> 
+                            </a>
+                            <a href="servicio.php?accion=delete&id=<?php echo $servicio['id_servicio']; ?>" type="button" class="btn btn-outline-danger btn-sm">
+                                <i class="fa-solid fa-xmark"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</section>
