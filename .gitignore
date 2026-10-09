@@ -3,7 +3,6 @@
 
 # Archivos subidos dinámicamente por usuarios 
 /src/images/uploads/*
-!/src/images/uploads/.gitkeep
 
 # credenciales
 .env

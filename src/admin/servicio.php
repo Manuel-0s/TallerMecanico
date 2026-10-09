@@ -15,6 +15,7 @@
                 $servicios = $app->getAll();
                 include_once __DIR__ . '/../templates/admin/servicio/index.html';
             } else {
+                $datos['accion'] = 'create';
                 include_once __DIR__ . '/../templates/admin/servicio/_form.php'; 
             }
             break;
@@ -27,6 +28,7 @@
                 include_once __DIR__ . '/../templates/admin/servicio/index.html';
             } else {
                 $datos = $app -> getOne($id);
+                $datos['accion'] = 'update';
                 include_once __DIR__ . '/../templates/admin/servicio/_form.php'; 
             }
             break;

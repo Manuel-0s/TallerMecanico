@@ -1,49 +1,52 @@
-<div class="row align-items-center mb-4">
-    <div class="col-12 col-md-9 mb-3 mb-md-0">
-        <h3 class="fw-bold mb-1">Servicios</h3>
-        <p class="text-muted mb-0">
-            Administra el catálogo de servicios, modifica precios base y gestiona la disponibilidad para las citas del taller.
-        </p>
+<div class="my-5 mx-5">
+    <div class="row align-items-center mb-5">
+        <div class="col-12 mb-3 mb-md-0">
+            <h2 class="fw-bold mb-1">Servicios</h2>
+            <p class="text-muted mb-0">
+                Administra el catálogo de servicios, modifica precios base y gestiona la disponibilidad para las citas del taller.
+            </p>
+            <a href="servicio.php?accion=create" class="btn btn-success mt-3">
+                <i class="fa-solid fa-plus"></i> Agregar
+            </a>
+        </div>
     </div>
-    <div class="col-12 col-md-3 text-md-end">
-        <a href="servicio.php?accion=create" class="btn btn-success">
-            <i class="fa-solid fa-plus"></i> Agregar
-        </a>
-    </div>
-</div>
 
-<section class="card shadow-sm border-0 mb-4">
-    <div class="table-responsive">
-        <table class="table table-hover mb-0">
-            <thead class="table-light">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Servicio</th>
-                    <th scope="col">Descipción</th>
-                    <th scope="col">Costo</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody class="table-group-divider">
-                <?php foreach ($servicios as $servicio): ?>
-                <tr>
-                    <th scope="row"><?php echo $servicio['id_servicio']; ?></th>
-                    <td><?php echo $servicio['servicio']; ?></td>
-                    <td><?php echo $servicio['descripcion']; ?></td>
-                    <td>$<?php echo $servicio['precio_base']; ?></td>
-                    <td>
-                        <div class="btn-group" role="group" aria-label="Basic outlined example">
-                            <a href="servicio.php?accion=update&id=<?php echo $servicio['id_servicio']; ?>" type="button" class="btn btn-outline-primary btn-sm">
-                                <i class="fa-solid fa-pen-to-square"></i> 
+    <div class="row">
+        <?php if (!empty($servicios)): ?>
+            <?php foreach ($servicios as $servicio): ?>
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 d-flex flex-column">
+                        <div class="card-header p-0 d-flex align-items-center justify-content-center bg-light" style="height: 100px; overflow: hidden;">
+                            <img src="../images/uploads/<?php echo $servicio['imagen']; ?>" 
+                                class="img-fluid" 
+                                style="max-height: 80px; width: auto;" 
+                                alt="<?php echo $servicio['servicio']; ?>">
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $servicio['servicio']; ?></h5>
+                            <h5 class="card-title"><strong>$<?php echo $servicio['precio_base']; ?></strong></h5>
+                            <p class="card-text"><?php echo $servicio['descripcion']; ?></p>
+                        </div>
+
+                        <div class="card-footer bg-white border-top-0 
+                        d-flex w-100 gap-2 " role="group" aria-label="Acciones del servicio">
+                            <a href="servicio.php?accion=update&id=<?php echo $servicio['id_servicio']; ?>" type="button" 
+                                class="btn btn-outline-primary btn-sm flex-fill">
+                                <i class="fa-solid fa-pen-to-square"></i> Editar
                             </a>
-                            <a href="servicio.php?accion=delete&id=<?php echo $servicio['id_servicio']; ?>" type="button" class="btn btn-outline-danger btn-sm">
-                                <i class="fa-solid fa-xmark"></i>
+                            <a href="servicio.php?accion=delete&id=<?php echo $servicio['id_servicio']; ?>" type="button"
+                                class="btn btn-outline-danger btn-sm flex-fill">
+                                <i class="fa-solid fa-xmark"></i> Eliminar
                             </a>
                         </div>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div class="col-12 text-center py-5">
+                <p class="text-muted">No hay servicios disponibles en este momento.</p>
+            </div>
+        <?php endif; ?>
     </div>
-</section>
+</div>
