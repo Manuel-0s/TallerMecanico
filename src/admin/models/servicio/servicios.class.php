@@ -12,13 +12,15 @@
             $data['imagen'] = $this -> cargarArchivo($nombre = 'imagen', $ruta = '/../../images/uploads/');
             
             $sql = "INSERT INTO servicio (servicio, descripcion, precio_base, imagen)
-                        VALUES (:servicio, :descripcion, :precio_base, :imagen)";                 
+                        VALUES (:servicio, :descripcion, :precio_base, :imagen)";       
+
             $stmt = $this -> db -> prepare($sql);
             $stmt -> bindParam(':servicio', $data['servicio'], PDO::PARAM_STR);
             $stmt -> bindParam(':descripcion', $data['descripcion'], PDO::PARAM_STR);
             $stmt -> bindParam(':precio_base', $data['precio_base'], PDO::PARAM_STR);
             $stmt -> bindParam(':imagen', $data['imagen'], PDO::PARAM_STR);
             $stmt -> execute();
+            
             $datos = $data;
             $datos['afectados'] = $stmt->rowCount();
             $datos['id'] = $this->db->lastInsertId();
@@ -57,20 +59,21 @@
 
             $afectados = 0;
             if (is_numeric($id) && !empty($data)) {
-                    $sql = "UPDATE servicio 
-                        SET servicio = :servicio,
-                            descripcion = :descripcion, 
-                            precio_base = :precio_base,
-                            imagen = :imagen
-                        WHERE id_servicio = :id";
-                    $stmt = $this -> db -> prepare($sql);
-                    $stmt -> bindParam(':servicio', $data['servicio'], PDO::PARAM_STR);
-                    $stmt -> bindParam(':descripcion', $data['descripcion'], PDO::PARAM_STR);
-                    $stmt -> bindParam(':precio_base', $data['precio_base'], PDO::PARAM_STR);
-                    $stmt -> bindParam(':imagen', $data['imagen'], PDO::PARAM_STR);
-                    $stmt -> bindParam(':id', $id, PDO::PARAM_INT);
-                    $stmt -> execute();
-                    $afectados = $stmt -> rowCount();
+                $sql = "UPDATE servicio 
+                    SET servicio = :servicio,
+                        descripcion = :descripcion, 
+                        precio_base = :precio_base,
+                        imagen = :imagen
+                    WHERE id_servicio = :id";
+
+                $stmt = $this -> db -> prepare($sql);
+                $stmt -> bindParam(':servicio', $data['servicio'], PDO::PARAM_STR);
+                $stmt -> bindParam(':descripcion', $data['descripcion'], PDO::PARAM_STR);
+                $stmt -> bindParam(':precio_base', $data['precio_base'], PDO::PARAM_STR);
+                $stmt -> bindParam(':imagen', $data['imagen'], PDO::PARAM_STR);
+                $stmt -> bindParam(':id', $id, PDO::PARAM_INT);
+                $stmt -> execute();
+                $afectados = $stmt -> rowCount();
             }
             return $afectados;
         }
