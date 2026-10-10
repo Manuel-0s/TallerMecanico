@@ -38,7 +38,7 @@
             $datos = [];
             $sql = "SELECT * FROM cita";
             $stmt = $this -> db -> query($sql);
-            $datos = $stmt -> fetch(PDO::FETCH_ASSOC);
+            $datos = $stmt -> fetchAll(PDO::FETCH_ASSOC);
             return $datos;
         }
 

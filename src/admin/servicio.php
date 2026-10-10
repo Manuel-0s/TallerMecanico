@@ -40,7 +40,7 @@
         case 'read':
         default:
             $servicios = $app->getAll();
-                include_once __DIR__ . '/../templates/admin/servicio/index.html';
+            include_once __DIR__ . '/../templates/admin/servicio/index.html';
             break;
            
     }
