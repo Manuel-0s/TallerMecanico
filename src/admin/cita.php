@@ -1,11 +1,15 @@
 <?php 
     include_once __DIR__ . '/models/cita/cita.class.php';
+    include_once __DIR__ . '/models/vehiculo/vehiculo.class.php';
 
     $app = new Cita();
+    $appVehiculo = new Vehiculo();
     $accion = $_GET['accion'] ?? 'read';
     $id = $_GET['id'] ?? null;
 
     include_once __DIR__ . '/../templates/admin/sidebar.html';
+
+    $vehiculos = $appVehiculo->getAll();
 
     switch ($accion) {
         case 'create':
