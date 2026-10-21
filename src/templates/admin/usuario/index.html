@@ -3,11 +3,11 @@
         <div class="mb-3 mb-md-0">
             <h2 class="fw-bold mb-1">
                 Usuarios
-                <span class="badge bg-primary-subtle text-primary rounded-pill fs-6 align-middle ms-2"><?= count($clientes); ?></span>
+                <span class="badge bg-primary-subtle text-primary rounded-pill fs-6 align-middle ms-2"><?= count($usuarios); ?></span>
             </h2>
         </div>
-        <a href="usuarios.php?accion=create" class="btn btn-success mt-3">
-                <i class="fa-solid fa-plus me-1"></i> Agregar
+        <a href="usuario.php?accion=create" class="btn btn-success mt-3">
+                <i class="fa-solid fa-plus me-1"></i> Registrar
         </a>
     </div>
         
@@ -18,36 +18,48 @@
                     <tr>
                         <th scope="col" style="width: 5%">#</th>
                         <th scope="col">Nombre Completo</th>
-                        <th scope="col">Teléfono</th>
                         <th scope="col">Correo</th>
+                        <th scope="col">Activo</th>
                         <th scope="col" class="text-end pe-4" style="width: 10%">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    <?php foreach ($clientes as $cliente): ?>
+                    <?php foreach ($usuarios as $usuario): ?>
                     <tr>
-                        <th scope="row"><?= $cliente['id_cliente']; ?></span></th>
-                        <td><?php echo htmlspecialchars($cliente['nombre'] . ' ' . $cliente['primer_apellido'] . ' ' . ($cliente['segundo_apellido'] ?? '')); ?></td>
-                        <td><?php echo htmlspecialchars($cliente['telefono']); ?></td>
-                        <td><?php echo htmlspecialchars($cliente['correo']); ?></td>
+                        <th scope="row"><?php echo $usuario['id_usuario']; ?></span></th>
+                        <td><?php echo $usuario['nombre'] . ' ' . $usuario['primer_apellido'] . ' ' . ($usuario['segundo_apellido'] ?? ''); ?></td>
+                        <td><?php echo $usuario['correo']; ?></td>
+                        <td>
+                            <?php if ($usuario['activo']): ?>
+                                <span class="badge bg-success">Activo</span>
+                            <?php else: ?>
+                                <span class="badge bg-danger">Inactivo</span>
+                            <?php endif; ?>
+                        </td>
                         <td class="text-end">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Acciones de cliente">
-                                <a href="cliente.php?accion=update&id=<?= $cliente['id_cliente']; ?>" 
+                                <a href="usuario.php?accion=update&id=<?= $usuario['id_usuario']; ?>" 
                                 class="btn btn-outline-primary" 
-                                title="Editar cliente">
+                                title="Editar usuario">
                                     <i class="fa-solid fa-pen-to-square"></i> 
                                 </a>
-                                <a href="cliente.php?accion=delete&id=<?= $cliente['id_cliente']; ?>" 
+                                <a href="usuario.php?accion=delete&id=<?= $usuario['id_usuario']; ?>" 
                                 class="btn btn-outline-danger" 
-                                title="Eliminar cliente"
+                                title="Eliminar usuario"
                                 onclick="return confirm('¿Estás seguro de que deseas eliminar a este cliente?');">
                                     <i class="fa-solid fa-trash"></i>
+                                </a>
+                                <a href="usuario.php?accion=disable&id=<?= $usuario['id_usuario']; ?>" 
+                                class="btn btn-outline-secondary" 
+                                title="Desactivar usuario"
+                                onclick="return confirm('¿Estás seguro de que deseas desactivar a este cliente?');">
+                                    <i class="fa-solid fa-power-off"></i>
                                 </a>
                             </div>
                         </td>
                     </tr>
                     <?php endforeach; ?>
-                    <?php if (empty($clientes)): ?>
+                    <?php if (empty($usuarios)): ?>
                         <tr><td colspan="5" class="text-center text-muted py-5">No hay clientes registrados.</td></tr>
                     <?php endif; ?>
                 </tbody>

@@ -16,7 +16,7 @@
                 include_once __DIR__ . '/../templates/admin/servicio/index.html';
             } else {
                 $datos['accion'] = 'create';
-                include_once __DIR__ . '/../templates/admin/servicio/_form.php'; 
+                include_once __DIR__ . '/../templates/admin/servicio/_form.php';
             }
             break;
         case 'update':

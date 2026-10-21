@@ -1,5 +1,5 @@
 <?php $datos = $datos ?? []; ?>
-<div class="col-12">
+<div class="my-5 mx-5">
     <form enctype="multipart/form-data" 
         action="servicio.php?accion=<?php echo $accion ?? 'create';?>&id=<?php echo $_GET['id'] ?? $datos['id'] ?? '' ?>" 
         method="post" 

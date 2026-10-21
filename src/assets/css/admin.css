@@ -9,6 +9,23 @@ body{
     border-right: 1px solid #dee2e6;
 }
 
+#sidebar{
+    background-color: #1f2937;
+    color: #f8fafc;
+}
+
+#sidebar .nav-link{
+    color: #f8fafc !important;
+}
+
+#sidebar .nav-link:hover{
+    background-color: #334155;
+}
+
+#sidebar hr{
+    border-color: #64748b;
+}
+
 .admin-main{
     flex: 1 1 0;
     min-width: 0;

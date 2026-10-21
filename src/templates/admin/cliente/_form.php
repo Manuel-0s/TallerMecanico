@@ -1,5 +1,5 @@
 <?php $datos = $datos ?? []; ?>
-<div class="col-12">
+<div class="my-5 mx-5">
     <form enctype="multipart/form-data"
         action="cliente.php?accion=<?php echo $accion ?? 'create';?>&id=<?php echo $_GET['id'] ?? $datos['id'] ?? '' ?>" 
         method="post" 
@@ -46,8 +46,8 @@
         </div>
 
         <div class="card-footer d-flex justify-content-end gap-2 bg-white py-3 border-0">
-            <input type="submit" name="enviar" class="btn btn-success mt-3" value="Guardar">
-            <a href="cliente.php" class="btn btn-danger mt-3">Cancelar</a>
+            <input type="submit" name="enviar" class="btn btn-primary" value="Guardar">
+            <a href="cliente.php" class="btn btn-secondary">Cancelar</a>
         </div>
     </form>
 </div>
