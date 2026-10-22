@@ -1,4 +1,5 @@
 <?php $datos = $datos ?? []; ?>
+<?php $roles = $roles ?? []; ?>
 <div class="my-5 mx-5">
     <form enctype="multipart/form-data" 
         action="usuario.php?accion=<?php echo $accion ?? 'create';?>&id=<?php echo $_GET['id'] ?? $datos['id'] ?? '' ?>" 
@@ -43,6 +44,28 @@
                     <label class="form-label text-muted">Contraseña</label>
                     <input type="password" name="data[contrasena]" class="form-control" id="contrasena" required
                     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label d-block">Selecciona los roles</label>
+
+                    <div class="d-grid gap-2 d-md-block" aria-label="Roles del usuario">
+                        <?php foreach ($roles as $rol): ?>
+                            <?php $rolId = (int) $rol['id_rol']; ?>
+                            <input
+                                type="checkbox"
+                                class="btn-check"
+                                name="data[id_rol][]"
+                                value="<?php echo $rolId; ?>"
+                                id="rol-<?php echo $rolId; ?>"
+                                autocomplete="off"
+                                <?php echo in_array($rolId, $datos['roles'] ?? [], true) ? 'checked' : ''; ?>
+                            >
+                            <label class="btn btn-outline-primary" for="rol-<?php echo $rolId; ?>">
+                                <?php echo $rol['rol']; ?>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
             </div>  
         </div>

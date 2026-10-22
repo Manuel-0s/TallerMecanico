@@ -38,5 +38,13 @@ class Usuario extends GenericCRUD {
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    function getOneByCorreo($correo) {
+        $sql = "SELECT * FROM {$this->table} WHERE correo = :correo";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':correo', $correo, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
 ?>
