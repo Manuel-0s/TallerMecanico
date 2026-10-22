@@ -1,3 +1,4 @@
+<?php $usuarios = $usuarios ?? [] ?>
 <div class="my-5 mx-5">
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-5">
         <div class="mb-3 mb-md-0">
@@ -19,7 +20,7 @@
                         <th scope="col" style="width: 5%">#</th>
                         <th scope="col">Nombre Completo</th>
                         <th scope="col">Correo</th>
-                        <th scope="col">Activo</th>
+                        <th scope="col">Estatus</th>
                         <th scope="col" class="text-end pe-4" style="width: 10%">Acciones</th>
                     </tr>
                 </thead>
