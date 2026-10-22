@@ -13,7 +13,7 @@
                 $data = $_POST['data'];
                 $datos = $app -> create($data);
                 $clientes = $app->getAll();
-                include_once __DIR__ . '/../templates/admin/cliente/index.html';
+                include_once __DIR__ . '/../templates/admin/cliente/index.php';
             } else {
                 $datos['accion'] = 'create';
                 include_once __DIR__ . '/../templates/admin/cliente/_form.php'; 
@@ -25,7 +25,7 @@
                 $id = $_POST['id'] ?? $_GET['id'] ?? null;
                 $datos = $app->update($id, $data);
                 $clientes = $app->getAll();
-                include_once __DIR__ . '/../templates/admin/cliente/index.html';
+                include_once __DIR__ . '/../templates/admin/cliente/index.php';
             } else {
                 $datos = $app -> getOne($id);
                 $datos['accion'] = 'update';
@@ -35,12 +35,12 @@
         case 'delete':
             $afectados = $app->delete($id);
             $clientes = $app->getAll();
-            include_once __DIR__ . '/../templates/admin/cliente/index.html';
+            include_once __DIR__ . '/../templates/admin/cliente/index.php';
             break;
         case 'read':
         default:
             $clientes = $app->getAll();
-            include_once __DIR__ . '/../templates/admin/cliente/index.html';
+            include_once __DIR__ . '/../templates/admin/cliente/index.php';
             break;
            
     }

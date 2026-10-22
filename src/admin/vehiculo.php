@@ -17,7 +17,7 @@
                 $data = $_POST['data'];
                 $datos = $app -> create($data);
                 $vehiculos = $app->getAll();
-                include_once __DIR__ . '/../templates/admin/vehiculo/index.html';
+                include_once __DIR__ . '/../templates/admin/vehiculo/index.php';
             } else {
                 $datos['accion'] = 'create';
                 include_once __DIR__ . '/../templates/admin/vehiculo/_form.php'; 
@@ -29,7 +29,7 @@
                 $id = $_POST['id'] ?? $_GET['id'] ?? null;
                 $datos = $app->update($id, $data);
                 $vehiculos = $app->getAll();
-                include_once __DIR__ . '/../templates/admin/vehiculo/index.html';
+                include_once __DIR__ . '/../templates/admin/vehiculo/index.php';
             } else {
                 $datos = $app -> getOne($id);
                 $datos['accion'] = 'update';
@@ -39,12 +39,12 @@
         case 'delete':
             $afectados = $app->delete($id);
             $vehiculos = $app->getAll();
-            include_once __DIR__ . '/../templates/admin/vehiculo/index.html';
+            include_once __DIR__ . '/../templates/admin/vehiculo/index.php';
             break;
         case 'read':
         default:
             $vehiculos = $app->getAll();
-            include_once __DIR__ . '/../templates/admin/vehiculo/index.html';
+            include_once __DIR__ . '/../templates/admin/vehiculo/index.php';
             break;
            
     }

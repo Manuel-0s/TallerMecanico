@@ -13,7 +13,7 @@ switch ($accion) {
             $data = $_POST['data'];
             $app->create($data);
             $usuarios = $app->getAll();    
-            include_once __DIR__ . '/../templates/admin/usuario/index.html';
+            include_once __DIR__ . '/../templates/admin/usuario/index.php';
         } else {
             $datos['accion'] = 'create';
             include_once __DIR__ . '/../templates/admin/usuario/_form.php';
@@ -24,7 +24,7 @@ switch ($accion) {
             $data = $_POST['data'];
             $app->update($id, $data);
             $usuarios = $app->getAll();    
-            include_once __DIR__ . '/../templates/admin/usuario/index.html';
+            include_once __DIR__ . '/../templates/admin/usuario/index.php';
         } else {
             $datos = $app->getOne($id);
             $datos['accion'] = 'update';
@@ -34,17 +34,17 @@ switch ($accion) {
     case 'delete':
         $afectados = $app->delete($id);
         $usuarios = $app->getAll();
-        include_once __DIR__ . '/../templates/admin/usuario/index.html';
+        include_once __DIR__ . '/../templates/admin/usuario/index.php';
         break;
     case 'disable':
         $afectados = $app->disable($id);
         $usuarios = $app->getAll();
-        include_once __DIR__ . '/../templates/admin/usuario/index.html';
+        include_once __DIR__ . '/../templates/admin/usuario/index.php';
         break;
     case 'read':
     default:
         $usuarios = $app->getAll();    
-        include_once __DIR__ . '/../templates/admin/usuario/index.html';
+        include_once __DIR__ . '/../templates/admin/usuario/index.php';
         break;
 }
 

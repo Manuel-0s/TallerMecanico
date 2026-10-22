@@ -19,7 +19,7 @@
                 <div class="col-md-3 mb-4">
                     <div class="card h-100 d-flex flex-column">
                         <div class="card-header p-0 d-flex align-items-center justify-content-center bg-light" style="height: 100px; overflow: hidden;">
-                            <img src="../images/uploads/<?php echo $servicio['imagen']; ?>" 
+                            <img src="/assets/images/uploads/<?php echo $servicio['imagen']; ?>" 
                                 class="img-fluid" 
                                 style="max-height: 80px; width: auto;" 
                                 alt="<?php echo $servicio['servicio']; ?>">

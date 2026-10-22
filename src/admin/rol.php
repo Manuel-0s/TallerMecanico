@@ -13,7 +13,7 @@ switch($accion){
             $data = $_POST['data'];
             $app->create($data);
             $roles = $app->getAll();
-            include_once __DIR__ . '/../templates/admin/rol/index.html';
+            include_once __DIR__ . '/../templates/admin/rol/index.php';
         }else{
             $datos['accion'] = 'create';
             include_once __DIR__ . '/../templates/admin/rol/_form.php';
@@ -25,7 +25,7 @@ switch($accion){
             $id = $_POST['id'] ?? $_GET['id'] ?? null;
             $datos = $app->update($id, $data);
             $roles = $app->getAll();
-            include_once __DIR__ . '/../templates/admin/rol/index.html';
+            include_once __DIR__ . '/../templates/admin/rol/index.php';
         }else{
             $datos = $app->getOne($id);
             $datos['accion'] = 'update';
@@ -35,12 +35,12 @@ switch($accion){
     case 'delete':
         $afectados = $app->delete($id);
         $roles = $app->getAll();
-        include_once __DIR__ . '/../templates/admin/rol/index.html';
+        include_once __DIR__ . '/../templates/admin/rol/index.php';
         break;
     case 'read':
     default:
         $roles = $app->getAll();
-        include_once __DIR__ . '/../templates/admin/rol/index.html';
+        include_once __DIR__ . '/../templates/admin/rol/index.php';
         break;
 }
 

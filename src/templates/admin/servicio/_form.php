@@ -41,7 +41,7 @@
             </div>  
             <div class="col-md-4 d-flex flex-column align-items-center justify-content-center bg-light">
                 <?php if (!empty($datos['imagen'])): ?>
-                    <img src="../images/uploads/<?php echo $datos['imagen'] ?? ''; ?>" 
+                    <img src="/assets/images/uploads/<?php echo $datos['imagen'] ?? ''; ?>" 
                         alt="Previsualización del servicio" 
                         class="mb-3 img-fluid" 
                         id="preview" 
