@@ -23,8 +23,8 @@
                 <div class="mb-3">
                     <label class="form-label text-muted">Estatus *</label>
                     <select name="data[estatus]" class="form-select" id="estatus" required>
-                        <?php $estatusActual = $datos['estatus'] ?? 'pendiente'; ?>
-                        <?php foreach (['pendiente', 'confirmada', 'en_proceso', 'completada', 'cancelada'] as $estatus): ?>
+                        <?php $estatusActual = $datos['estatus'] ?? 'programada'; ?>
+                        <?php foreach (['programada', 'atendida', 'cancelada'] as $estatus): ?>
                             <option value="<?php echo $estatus; ?>" <?php echo ($estatusActual === $estatus) ? 'selected' : ''; ?>>
                                 <?php echo ucfirst(str_replace('_', ' ', $estatus)); ?>
                             </option>
