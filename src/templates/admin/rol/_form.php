@@ -1,4 +1,6 @@
 <?php $datos = $datos ?? []; ?>
+<?php $permisos = $permisos ?? []; ?>
+
 <div class="my-5 mx-5">
     <form enctype="multipart/form-data" 
         action="rol.php?accion=<?php echo $accion ?? 'create';?>&id=<?php echo $_GET['id'] ?? $datos['id'] ?? '' ?>" 
@@ -24,6 +26,27 @@
                     <label class="form-label text-muted">Descripción</label>
                     <textarea name="data[descripcion]" class="form-control" style="height: 100px" 
                     minlength="1" maxlength="255"><?php echo $datos['descripcion'] ?? '' ?></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label d-block">Selecciona los permisoes</label>
+
+                    <div class="d-grid gap-2 d-md-block" aria-label="permisoes del usuario">
+                        <?php foreach ($permisos as $permiso): ?>
+                            <?php $permisoId = (int) $permiso['id_permiso']; ?>
+                            <input
+                                type="checkbox"
+                                class="btn-check"
+                                name="data[id_permiso][]"
+                                value="<?php echo $permisoId; ?>"
+                                id="permiso-<?php echo $permisoId; ?>"
+                                autocomplete="off"
+                                <?php echo in_array($permisoId, $datos['permisos'] ?? [], true) ? 'checked' : ''; ?>
+                            >
+                            <label class="btn btn-outline-primary" for="permiso-<?php echo $permisoId; ?>">
+                                <?php echo $permiso['permiso']; ?>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
             </div>  
         </div>

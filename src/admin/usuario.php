@@ -15,8 +15,7 @@ switch ($accion) {
     case 'create':
         if (isset($_POST['enviar'])) {
             $data = $_POST['data'];
-            $app->create($data);
-            $data['id_usuario'] = $app-> getOneByCorreo($data['correo'])['id_usuario'];
+            $data['id_usuario'] = $app->create($data)['id'];
             $appUsuarioRol->create($data);
             $usuarios = $app->getAll();   
             include_once __DIR__ . '/../templates/admin/usuario/index.php';
