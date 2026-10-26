@@ -28,11 +28,6 @@ Class Auth extends Sistema {
                 $_SESSION['roles'] = $this->getRoles($usuario['correo']);
                 $_SESSION['permisos'] = $this->getPermisos($usuario['correo']);
 
-                echo '<pre>';
-                print_r($_SESSION);
-                echo '</pre>';
-
-
                 return true;
             }
         }
@@ -72,6 +67,5 @@ Class Auth extends Sistema {
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 }
-
 
 ?>

@@ -11,5 +11,15 @@
             "imagen" => PDO::PARAM_STR
         ];
 
+        function getCantServicios(){
+            $sql = "SELECT s.servicio, count(s.id_servicio) AS cantidad
+                FROM servicio s
+                    JOIN cita_servicio cs ON s.id_servicio = cs.id_servicio
+                GROUP BY s.servicio";
+            $stmt = $this -> db -> query($sql);
+            $datos = $stmt -> fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+        }
+
     }
 ?>

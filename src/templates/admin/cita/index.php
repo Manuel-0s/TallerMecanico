@@ -1,3 +1,5 @@
+<?php $citas = $citas ?? []?>
+
 <div class="my-5 mx-5">
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-5">
         <div class="mb-3 mb-md-0">
@@ -31,7 +33,7 @@
                         <th scope="row"><?php echo $cita['id_cita']; ?></th>
                         <td><?php echo $cita['fecha']; ?></td>
                         <td><?php echo $cita['estatus']; ?></td>
-                        <td>$<?php echo $cita['observaciones']; ?></td>
+                        <td><?php echo $cita['observaciones']; ?></td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
                                 <a href="cita.php?accion=update&id=<?php echo $cita['id_cita']; ?>" type="button" class="btn btn-outline-primary btn-sm">
