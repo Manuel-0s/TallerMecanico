@@ -1,6 +1,6 @@
 <?php
 
-class FileUploader
+class fileUploader
 {
     public function cargarArchivo(string $nombre, string $directorioDestino): ?string
     {

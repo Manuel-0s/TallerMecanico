@@ -1,6 +1,6 @@
 <?php 
     include_once __DIR__ . '/models/servicio/servicios.class.php';
-    include_once __DIR__ . '/../helpers/FileUploader.php';
+    include_once __DIR__ . '/../helpers/fileUploader.php';
 
     $app = new Servicio();
     $uploader = new FileUploader();

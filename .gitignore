@@ -4,6 +4,9 @@
 # Archivos subidos dinámicamente por usuarios 
 /src/images/uploads/*
 
+# Dependencies
+/src/vendor/
+
 # credenciales
 .env
 
