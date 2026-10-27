@@ -17,13 +17,13 @@
         
                 <div class="mb-3">
                     <label class="form-label text-muted">Nombre del permiso</label>
-                    <input type="text" name="data[permiso]" value="<?php echo $datos['permiso'] ?? '' ?>" class="form-contpermiso" id="permiso" required
+                    <input type="text" name="data[permiso]" value="<?php echo $datos['permiso'] ?? '' ?>" class="form-control" id="permiso" required
                     minlength="1" maxlength="50" pattern="[A-Za-zÀ-ÿ\s]+">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label text-muted">Descripción</label>
-                    <textarea name="data[descripcion]" class="form-contpermiso" style="height: 100px" 
+                    <textarea name="data[descripcion]" class="form-control" style="height: 100px" 
                     minlength="1" maxlength="255"><?php echo $datos['descripcion'] ?? '' ?></textarea>
                 </div>
             </div>  

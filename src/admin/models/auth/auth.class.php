@@ -11,7 +11,6 @@ Class Auth extends Sistema {
             }
         }
 
-
     function login($correo, $contrasena) {
         if (filter_var($correo, FILTER_VALIDATE_EMAIL)) {
             $sql = "SELECT * FROM usuario WHERE correo = :correo";
@@ -65,6 +64,53 @@ Class Auth extends Sistema {
         $stmt->bindParam(':correo', $correo, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    function verificarRol ($id) {
+        if (isset($_SESSION['roles']) && in_array($id, $_SESSION['roles'])) {
+            return true;
+        }
+        $alerta = [
+            'mensaje' => 'No tienes permiso para acceder a esta sección.',
+            'tipo' => 'danger'
+        ];
+        $this -> logout();
+        require_once __DIR__ . '/../../../templates/login/login.html';
+    }
+
+    function guardarToken($correo, $token) {
+        if (filter_var($correo, FILTER_VALIDATE_EMAIL) && strlen($token) == 64) {
+            $sql = "UPDATE usuario SET token = :token WHERE correo = :correo";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':token', $token, PDO::PARAM_STR);
+            $stmt->bindParam(':correo', $correo, PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt->rowCount() > 0;
+        }
+        return false;
+    }
+
+    function validarToken($token) {
+        if (strlen($token) == 64) {
+            $sql = "SELECT * FROM usuario WHERE token = :token";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':token', $token, PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt->rowCount() > 0;
+        }
+        return false;
+    }
+    
+    function restablecerContraseña($token, $contrasena) {
+        $afectados = 0;
+        $contrasena_hash = password_hash($contrasena, PASSWORD_DEFAULT);
+        $sql = "UPDATE usuario SET contrasena = :contrasena, token = NULL WHERE token = :token";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":contrasena", $contrasena_hash, PDO::PARAM_STR);
+        $stmt->bindParam(":token", $token, PDO::PARAM_STR);
+        $stmt->execute();
+        $afectados = $stmt->rowCount();
+        return $afectados;
     }
 }
 
