@@ -1,11 +1,15 @@
 <?php
     include_once __DIR__ . '/models/empleado/empleado.class.php';
+    include_once __DIR__ . '/models/rol/rol.class.php';
+    include_once __DIR__ . '/models/usuario/usuario_rol.class.php';
     include_once __DIR__ . '/models/auth/auth.class.php';
 
     $appAuth = new Auth();
     $appAuth -> verificarRol('Administrador');
 
     $app = new Empleado();
+    $appRol = new Rol();
+    $appUsuarioRol = new UsuarioRol();
     $accion = $_GET['accion'] ?? 'read';
     $id = $_GET['id'] ?? null;
 
@@ -20,6 +24,7 @@
                 include_once __DIR__ . '/../templates/empleado/index.php';
             } else {
                 $datos['accion'] = 'create';
+                $roles = $appRol->getAll();
                 include_once __DIR__ . '/../templates/empleado/_form.php'; 
             }
             break;
@@ -32,6 +37,11 @@
                 include_once __DIR__ . '/../templates/empleado/index.php';
             } else {
                 $datos = $app -> getOne($id);
+                $roles = $appRol->getAll();
+                $datos['roles'] = $appUsuarioRol->getRolesById($id);
+                echo "<pre>";
+                print_r($datos);
+                echo "</pre>";
                 $datos['accion'] = 'update';
                 include_once __DIR__ . '/../templates/empleado/_form.php'; 
             }

@@ -28,12 +28,16 @@ class Empleado extends GenericCRUD {
 
             $data['id_usuario'] = $appUsuario->getOneByCorreo($data['correo'])['id_usuario'];
 
-            $stmt = $this->db->prepare(
-                "INSERT INTO usuario_rol (id_usuario, id_rol) VALUES (:id_usuario, :id_rol)"
-            );
-            $stmt->bindValue(':id_usuario', $data['id_usuario'], PDO::PARAM_INT);
-            $stmt->bindValue(':id_rol', self::ROL_EMPLEADO, PDO::PARAM_INT);
-            $stmt->execute();
+            $data["id_rol"][] = self::ROL_EMPLEADO;
+
+            foreach ($data["id_rol"] as $idRol) {
+                $stmt = $this->db->prepare(
+                    "INSERT INTO usuario_rol (id_usuario, id_rol) VALUES (:id_usuario, :id_rol)"
+                );
+                $stmt->bindValue(':id_usuario', $data['id_usuario'], PDO::PARAM_INT);
+                $stmt->bindValue(':id_rol', $idRol, PDO::PARAM_INT);
+                $stmt->execute();
+            }
 
             parent::create($data);
 
@@ -61,6 +65,31 @@ GROUP BY e.id_empleado, u.id_usuario;";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function delete($id) {
+        $this->db->beginTransaction();
+        try {
+            $empleado = $this->getOne($id);
+            if (!$empleado) {
+                throw new Exception("Empleado no encontrado");
+            }
+            $stmt = $this->db->prepare("DELETE FROM empleado WHERE id_empleado = :id_empleado");
+            $stmt->bindValue(':id_empleado', $id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $stmt = $this->db->prepare("DELETE FROM usuario WHERE id_usuario = :id_usuario");
+            $stmt->bindValue(':id_usuario', $empleado['id_usuario'], PDO::PARAM_INT);
+            $stmt->execute();
+
+            $this->db->commit();
+            return true;
+        } catch (Exception $e) {
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+            throw $e;
+        }
     }
 }
 ?>

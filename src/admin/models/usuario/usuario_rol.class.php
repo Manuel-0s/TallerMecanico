@@ -26,7 +26,10 @@ Class UsuarioRol extends GenericCRUD {
     function getRolesById($id){
         $datos = [];
         if (is_numeric($id)){
-            $sql = "SELECT id_rol FROM {$this->table} WHERE {$this->primaryKey} = :id";
+            $sql = "SELECT ur.id_rol FROM empleado e
+                    JOIN usuario u ON e.id_usuario = u.id_usuario
+                    JOIN usuario_rol ur ON u.id_usuario = ur.id_usuario
+                    WHERE e.id_empleado = :id";
             $stmt = $this -> db -> prepare($sql);
             $stmt -> bindParam(":id", $id, PDO::PARAM_INT);
             $stmt -> execute();

@@ -58,7 +58,6 @@
                                 name="data[id_rol][]"
                                 value="<?php echo $rolId; ?>"
                                 id="rol-<?php echo $rolId; ?>"
-                                autocomplete="off"
                                 <?php echo in_array($rolId, $datos['roles'] ?? [], true) ? 'checked' : ''; ?>
                             >
                             <label class="btn btn-outline-primary" for="rol-<?php echo $rolId; ?>">
