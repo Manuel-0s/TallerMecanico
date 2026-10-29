@@ -3,8 +3,8 @@ require_once __DIR__ . '/models/cita/cita.class.php';
 require_once __DIR__ . '/models/servicio/servicios.class.php';
 require_once __DIR__ . '/models/auth/auth.class.php';
 
-$appAuth = new Auth();
-$appAuth -> verificarRol('Mecanico');
+//$appAuth = new Auth();
+//$appAuth -> verificarRol('Mecanico');
 
 $appCita = new Cita();
 $citasEstatus = $appCita->getCitaEstatus();
