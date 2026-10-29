@@ -11,7 +11,5 @@ class Cliente extends GenericCRUD {
         "telefono" => PDO::PARAM_STR, 
         "correo" => PDO::PARAM_STR
         ];   
-
-
 }
 ?>

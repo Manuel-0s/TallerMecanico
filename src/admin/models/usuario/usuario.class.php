@@ -5,9 +5,6 @@ class Usuario extends GenericCRUD {
     protected $table = "usuario";
     protected $primaryKey = "id_usuario";
     protected $columns = [
-        "nombre" => PDO::PARAM_STR,
-        "primer_apellido" => PDO::PARAM_STR,
-        "segundo_apellido" => PDO::PARAM_STR,
         "correo" => PDO::PARAM_STR,
         "contrasena" => PDO::PARAM_STR,
         'activo' => PDO::PARAM_BOOL

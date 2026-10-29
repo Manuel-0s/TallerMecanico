@@ -18,7 +18,6 @@
                 <thead class="table-light">
                     <tr>
                         <th scope="col" style="width: 5%">#</th>
-                        <th scope="col">Nombre Completo</th>
                         <th scope="col">Correo</th>
                         <th scope="col">Estatus</th>
                         <th scope="col" class="text-end pe-4" style="width: 10%">Acciones</th>
@@ -28,7 +27,6 @@
                     <?php foreach ($usuarios as $usuario): ?>
                     <tr>
                         <th scope="row"><?php echo $usuario['id_usuario']; ?></span></th>
-                        <td><?php echo $usuario['nombre'] . ' ' . $usuario['primer_apellido'] . ' ' . ($usuario['segundo_apellido'] ?? ''); ?></td>
                         <td><?php echo $usuario['correo']; ?></td>
                         <td>
                             <?php if ($usuario['activo']): ?>
