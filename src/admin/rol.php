@@ -3,6 +3,11 @@ require_once __DIR__ . '/models/rol/rol.class.php';
 require_once __DIR__ . '/models/rol/rol_permiso.class.php';
 require_once __DIR__ . '/models/permiso/permiso.class.php';
 
+include_once __DIR__ . '/models/auth/auth.class.php';
+
+$appAuth = new Auth();
+$appAuth -> verificarRol('Administrador');
+
 $app = new Rol();
 $appRolPermiso = new RolPermiso();
 $appPermiso = new Permiso();
@@ -51,6 +56,5 @@ switch($accion){
         include_once __DIR__ . '/../templates/admin/rol/index.php';
         break;
 }
-
 require_once __DIR__ . '/../templates/admin/footer.html';
 ?>

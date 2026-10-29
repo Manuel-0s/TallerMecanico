@@ -1,6 +1,10 @@
 <?php 
     include_once __DIR__ . '/models/cita/cita.class.php';
     include_once __DIR__ . '/models/vehiculo/vehiculo.class.php';
+    include_once __DIR__ . '/models/auth/auth.class.php';
+
+    $appAuth = new Auth();
+    $appAuth -> verificarRol('Empleado');
 
     $app = new Cita();
     $appVehiculo = new Vehiculo();
@@ -47,4 +51,5 @@
             include_once __DIR__ . '/../templates/admin/cita/index.php';
             break;
     }
+    require_once __DIR__ . '/../templates/admin/footer.html';
 ?>

@@ -1,5 +1,9 @@
 <?php
     include_once __DIR__ . '/models/empleado/empleado.class.php';
+    include_once __DIR__ . '/models/auth/auth.class.php';
+
+    $appAuth = new Auth();
+    $appAuth -> verificarRol('Administrador');
 
     $app = new Empleado();
     $accion = $_GET['accion'] ?? 'read';
@@ -40,11 +44,8 @@
         case 'read':
         default:
             $empleados = $app->getAll();
-            echo "<pre>";
-            print_r($empleados);
-            echo "</pre>";
             include_once __DIR__ . '/../templates/empleado/index.php';
-            break;
-           
+            break;    
     }
+    require_once __DIR__ . '/../templates/admin/footer.html';
 ?>

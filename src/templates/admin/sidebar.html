@@ -43,6 +43,7 @@
                                 <i class="fa-solid fa-wrench"></i> Servicios
                             </a>
                         </li>
+                        <?php if (in_array('Administrador', $_SESSION['roles'])): ?>
                         <hr>
                         <li class="nav-item mb-2">
                             <a href="empleado.php" class="nav-link text-black">
@@ -60,6 +61,7 @@
                             </a>
                         </li>
                         <hr>
+                        <?php endif; ?>
                         <li class="nav-item mb-2">
                             <a href="#" class="nav-link text-black">
                                 <i class="fa-solid fa-gear"></i> Configuración

@@ -1,6 +1,10 @@
 <?php 
     include_once __DIR__ . '/models/servicio/servicios.class.php';
     include_once __DIR__ . '/../helpers/fileUploader.php';
+    include_once __DIR__ . '/models/auth/auth.class.php';
+
+    $appAuth = new Auth();
+    $appAuth -> verificarRol('Empleado');
 
     $app = new Servicio();
     $uploader = new FileUploader();
@@ -55,6 +59,5 @@
             break;
            
     }
-
     include_once __DIR__ . '/../templates/admin/footer.html';
 ?>

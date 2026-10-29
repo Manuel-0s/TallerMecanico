@@ -1,5 +1,9 @@
 <?php
 require_once __DIR__ . '/models/permiso/permiso.class.php';
+include_once __DIR__ . '/models/auth/auth.class.php';
+
+$appAuth = new Auth();
+$appAuth -> verificarRol('Administrador');
 
 $app = new Permiso();
 $accion = $_GET['accion'] ?? 'read';
@@ -42,6 +46,5 @@ switch ($accion) {
         include_once __DIR__ . '/../templates/admin/permiso/index.php';
         break;
 }
-
- require_once __DIR__ . '/../templates/admin/footer.html';
+require_once __DIR__ . '/../templates/admin/footer.html';
 ?>

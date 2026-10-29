@@ -1,9 +1,11 @@
 <?php
 include_once __DIR__ . '/models/usuario/usuario.class.php';
 include_once __DIR__ . '/models/usuario/usuario_rol.class.php';
+include_once __DIR__ . '/models/empleado/empleado.class.php';
 include_once __DIR__ . '/models/rol/rol.class.php';
 
 $app = new Usuario();
+$appEmpleado = new Empleado();
 $appRol = new Rol();
 $appUsuarioRol = new UsuarioRol();
 $accion = $_GET['accion'] ?? 'read';
@@ -47,8 +49,8 @@ switch ($accion) {
         break;
     case 'disable':
         $afectados = $app->disable($id);
-        $usuarios = $app->getAll();
-        include_once __DIR__ . '/../templates/admin/usuario/index.php';
+        $empleados = $appEmpleado->getAll();
+        include_once __DIR__ . '/../templates/empleado/index.php';
         break;
     case 'read':
     default:

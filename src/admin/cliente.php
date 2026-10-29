@@ -1,5 +1,9 @@
 <?php
     include_once __DIR__ . '/models/cliente/cliente.class.php';
+    include_once __DIR__ . '/models/auth/auth.class.php';
+
+    $appAuth = new Auth();
+    $appAuth -> verificarRol('Empleado');
 
     $app = new Cliente();
     $accion = $_GET['accion'] ?? 'read';
@@ -41,7 +45,7 @@
         default:
             $clientes = $app->getAll();
             include_once __DIR__ . '/../templates/admin/cliente/index.php';
-            break;
-           
+            break;      
     }
+    require_once __DIR__ . '/../templates/admin/footer.html';
 ?>

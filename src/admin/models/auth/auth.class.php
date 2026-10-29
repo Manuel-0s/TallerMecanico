@@ -13,7 +13,9 @@ Class Auth extends Sistema {
 
     function login($correo, $contrasena) {
         if (filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-            $sql = "SELECT * FROM usuario WHERE correo = :correo";
+            $sql = "SELECT * FROM usuario u 
+                    JOIN empleado e ON u.id_usuario = e.id_usuario
+                    WHERE correo = :correo";
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':correo', $correo, PDO::PARAM_STR);
             $stmt->execute();
@@ -54,12 +56,12 @@ Class Auth extends Sistema {
     }
 
     function getPermisos($correo) {
-        $sql = "SELECT r.rol FROM usuario u
+        $sql = "SELECT p.permiso FROM usuario u
                 JOIN usuario_rol ur ON u.id_usuario = ur.id_usuario
                 JOIN rol r ON ur.id_rol = r.id_rol
                 JOIN rol_permiso rp ON r.id_rol = rp.id_rol
                 JOIN permiso p ON rp.id_permiso = p.id_permiso
-                WHERE u.correo = :correo;";
+                WHERE u.correo = :correo";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':correo', $correo, PDO::PARAM_STR);
         $stmt->execute();
