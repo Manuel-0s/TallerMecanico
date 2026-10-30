@@ -5,7 +5,7 @@ Class Auth extends Sistema {
 
     function __construct() {
             parent::__construct();
-
+            
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
@@ -23,9 +23,8 @@ Class Auth extends Sistema {
 
             if ($usuario && password_verify($contrasena, $usuario['contrasena'])) {
                 session_regenerate_id(true);
-                unset($usuario['contrasena']);
+                unset($usuario['contrasena'], $usuario['token']);
                 $_SESSION['usuario'] = $usuario;
-                $_SESSION['valido'] = true;
                 $_SESSION['roles'] = $this->getRoles($usuario['correo']);
                 $_SESSION['permisos'] = $this->getPermisos($usuario['correo']);
 
@@ -45,7 +44,7 @@ Class Auth extends Sistema {
     }
 
     function getRoles($correo) {
-        $sql = "SELECT r.rol FROM usuario u
+        $sql = "SELECT DISTINCT r.rol FROM usuario u
                 JOIN usuario_rol ur ON u.id_usuario = ur.id_usuario
                 JOIN rol r ON ur.id_rol = r.id_rol
                 WHERE u.correo = :correo;";
@@ -68,16 +67,34 @@ Class Auth extends Sistema {
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
-    function verificarRol ($id) {
-        if (isset($_SESSION['roles']) && in_array($id, $_SESSION['roles'])) {
+    function verificarRol ($rol) {
+        if (isset($_SESSION['usuario']['activo']) && !$_SESSION['usuario']['activo']) {
+            $this->logout();
+            $alerta = [
+                'mensaje' => 'Tu cuenta se encuentra desactivada.',
+                'tipo' => 'danger'
+            ];
+            require_once __DIR__ . '/../../../templates/login/login.html';
+            exit;
+        }
+
+        if (isset($_SESSION['roles']) && in_array($rol, $_SESSION['roles'])) {
             return true;
         }
+        
         $alerta = [
             'mensaje' => 'No tienes permiso para acceder a esta sección.',
             'tipo' => 'danger'
         ];
         $this -> logout();
         require_once __DIR__ . '/../../../templates/login/login.html';
+    }
+
+    function verificarPermiso ($permiso) {
+        if (isset($_SESSION['permisos']) && in_array($permiso, $_SESSION['permisos'])) {
+            return true;
+        }
+        exit();
     }
 
     function guardarToken($correo, $token) {

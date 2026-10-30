@@ -1,3 +1,5 @@
+<?php $roles = $roles ?? [] ?>
+
 <div class="my-5 mx-5">
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-5">
         <div class="mb-3 mb-md-0">

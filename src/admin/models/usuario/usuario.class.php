@@ -26,13 +26,12 @@ class Usuario extends GenericCRUD {
         return parent::update($id, $data);
     }
 
-    function disable($id) {
-        $data = $this->getOne($id)['activo'] === false ? ['activo' => true] : ['activo' => false];
-
-        $sqp = "UPDATE {$this->table} SET activo = :activo WHERE {$this->primaryKey} = :id";
-        $stmt = $this->db->prepare($sqp);
-        $stmt->bindValue(':activo', $data['activo'], PDO::PARAM_BOOL);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    function toggleActivo($id) {
+        $sql = "UPDATE usuario 
+                SET activo = NOT activo 
+                WHERE id_usuario = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 

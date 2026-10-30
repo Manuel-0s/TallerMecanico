@@ -5,16 +5,18 @@
 
     $appAuth = new Auth();
     $appAuth -> verificarRol('Empleado');
+    $appAuth->verificarPermiso('servicio.ver');
 
     $app = new Servicio();
     $uploader = new FileUploader();
-    $accion = $_GET['accion'] ?? 'read';
+    $accion = $_GET['accion'] ?? 'read';    
     $id = $_GET['id'] ?? null;
 
     include_once __DIR__ . '/../templates/admin/sidebar.html';
 
     switch ($accion) {
         case 'create':
+            $appAuth -> verificarPermiso('servicio.crear');
             if(isset($_POST['enviar'])) {
                 $data = $_POST['data'];
                 $data['imagen'] = $uploader->cargarArchivo(
@@ -30,6 +32,7 @@
             }
             break;
         case 'update':
+            $appAuth -> verificarPermiso('servicio.editar');
             if (isset($_POST['enviar'])) {
                 $data = $_POST['data'];
                 $id = $_POST['id'] ?? $_GET['id'] ?? null;
@@ -48,6 +51,7 @@
             }
             break;
         case 'delete':
+            $appAuth->verificarPermiso('servicios.eliminar');
             $afectados = $app->delete($id);
             $servicios = $app->getAll();
             include_once __DIR__ . '/../templates/admin/servicio/index.php';

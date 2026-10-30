@@ -39,9 +39,6 @@
                 $datos = $app -> getOne($id);
                 $roles = $appRol->getAll();
                 $datos['roles'] = $appUsuarioRol->getRolesById($id);
-                echo "<pre>";
-                print_r($datos);
-                echo "</pre>";
                 $datos['accion'] = 'update';
                 include_once __DIR__ . '/../templates/empleado/_form.php'; 
             }
@@ -50,6 +47,17 @@
             $afectados = $app->delete($id);
             $empleados = $app->getAll();
             include_once __DIR__ . '/../templates/empleado/index.php';
+            break;
+
+        case 'disable':
+            if ($id == $_SESSION['usuario']['id_empleado']) {
+                $alerta = ['mensaje' => 'No puedes desactivar tu propia cuenta.', 'tipo' => 'danger'];
+            } else {
+                $app->toggleActivo($id);
+            }
+            
+            $empleados = $app->getAll();
+            include __DIR__ . '/../templates/empleado/index.php';
             break;
         case 'read':
         default:

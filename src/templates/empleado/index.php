@@ -65,7 +65,7 @@
                                 onclick="return confirm('¿Estás seguro de que deseas eliminar a este empleado?');">
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
-                                <a href="usuario.php?accion=disable&id=<?= $empleado['id_usuario']; ?>" 
+                                <a href="empleado.php?accion=disable&id=<?= $empleado['id_empleado']; ?>" 
                                 class="btn btn-outline-secondary" 
                                 title="Desactivar usuario"
                                 onclick="return confirm('¿Estás seguro de que deseas desactivar a este empleado?');">

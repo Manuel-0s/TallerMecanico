@@ -8,9 +8,11 @@
                 Administra el catálogo de servicios, modifica precios base y gestiona la disponibilidad para las citas del taller.
             </p>
         </div>
-        <a href="servicio.php?accion=create" class="btn btn-success mt-3">
-            <i class="fa-solid fa-plus me-1"></i> Agregar
-        </a>
+        <?php if (in_array('servicio.crear', $_SESSION['permisos'])): ?>
+            <a href="servicio.php?accion=create" class="btn btn-success mt-3">
+                <i class="fa-solid fa-plus me-1"></i> Agregar
+            </a>
+        <?php endif; ?>
     </div>
 
     <div class="row">
@@ -30,17 +32,22 @@
                             <h5 class="card-title"><strong>$<?php echo $servicio['precio_base']; ?></strong></h5>
                             <p class="card-text"><?php echo $servicio['descripcion']; ?></p>
                         </div>
-
+                        
                         <div class="card-footer bg-white border-top-0 
                         d-flex w-100 gap-2 " role="group" aria-label="Acciones del servicio">
-                            <a href="servicio.php?accion=update&id=<?php echo $servicio['id_servicio']; ?>" type="button" 
-                                class="btn btn-outline-primary btn-sm flex-fill">
-                                <i class="fa-solid fa-pen-to-square"></i> Editar
-                            </a>
-                            <a href="servicio.php?accion=delete&id=<?php echo $servicio['id_servicio']; ?>" type="button"
-                                class="btn btn-outline-danger btn-sm flex-fill">
-                                <i class="fa-solid fa-xmark"></i> Eliminar
-                            </a>
+                            <?php if (in_array('servicio.editar', $_SESSION['permisos'])): ?>
+                                <a href="servicio.php?accion=update&id=<?php echo $servicio['id_servicio']; ?>" type="button" 
+                                    class="btn btn-outline-primary btn-sm flex-fill">
+                                    <i class="fa-solid fa-pen-to-square"></i> Editar
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if (in_array('servicio.eliminar', $_SESSION['permisos'])): ?>
+                                <a href="servicio.php?accion=delete&id=<?php echo $servicio['id_servicio']; ?>" type="button"
+                                    class="btn btn-outline-danger btn-sm flex-fill">
+                                    <i class="fa-solid fa-xmark"></i> Eliminar
+                                </a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

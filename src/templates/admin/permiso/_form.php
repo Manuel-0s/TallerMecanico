@@ -18,7 +18,7 @@
                 <div class="mb-3">
                     <label class="form-label text-muted">Nombre del permiso</label>
                     <input type="text" name="data[permiso]" value="<?php echo $datos['permiso'] ?? '' ?>" class="form-control" id="permiso" required
-                    minlength="1" maxlength="50" pattern="[A-Za-zÀ-ÿ\s]+">
+                    minlength="1" maxlength="50" pattern="[a-z_]+\.[a-z_]+">
                 </div>
 
                 <div class="mb-3">

@@ -28,9 +28,9 @@
                     minlength="1" maxlength="255"><?php echo $datos['descripcion'] ?? '' ?></textarea>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label d-block">Selecciona los permisoes</label>
+                    <label class="form-label d-block">Selecciona los permisos</label>
 
-                    <div class="d-grid gap-2 d-md-block" aria-label="permisoes del usuario">
+                    <div class="d-flex flex-wrap gap-2" aria-label="Permisos del rol">
                         <?php foreach ($permisos as $permiso): ?>
                             <?php $permisoId = (int) $permiso['id_permiso']; ?>
                             <input
@@ -42,8 +42,8 @@
                                 autocomplete="off"
                                 <?php echo in_array($permisoId, $datos['permisos'] ?? [], true) ? 'checked' : ''; ?>
                             >
-                            <label class="btn btn-outline-primary" for="permiso-<?php echo $permisoId; ?>">
-                                <?php echo $permiso['permiso']; ?>
+                            <label class="btn btn-sm btn-outline-primary" for="permiso-<?php echo $permisoId; ?>">
+                                <?php echo htmlspecialchars($permiso['permiso']); ?>
                             </label>
                         <?php endforeach; ?>
                     </div>

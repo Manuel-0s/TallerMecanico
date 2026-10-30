@@ -4,7 +4,7 @@
     include_once __DIR__ . '/models/auth/auth.class.php';
 
     $appAuth = new Auth();
-    $appAuth -> verificarRol('Empleado');
+    $appAuth -> verificarRol('Administrador');
 
     $app = new Cita();
     $appVehiculo = new Vehiculo();
