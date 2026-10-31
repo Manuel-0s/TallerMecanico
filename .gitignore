@@ -1,14 +1,41 @@
-# Dependencias
+# Dependencias instaladas
 /src/vendor/
 
-# Archivos subidos dinámicamente por usuarios 
-\src\assets\images\uploads*
+# Archivos subidos dinámicamente por usuarios
+/src/assets/images/uploads/*
 
-# credenciales
+# Variables de entorno y credenciales
 .env
+.env.*
+!.env.example
 
-# Sistema operativo y editores (opcional pero recomendado)
+# Logs, temporales y copias locales
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+
+# Cachés y resultados de pruebas
+.phpunit.result.cache
+.phpunit.cache/
+coverage/
+.cache/
+
+# Configuración local de Docker
+docker-compose.override.yml
+docker-compose.local.yml
+
+# Sistema operativo
 .DS_Store
 Thumbs.db
+.AppleDouble
+.LSOverride
+ehthumbs.db
+Desktop.ini
+
+# Editores e IDEs
 .vscode/
 .idea/
+*.code-workspace
