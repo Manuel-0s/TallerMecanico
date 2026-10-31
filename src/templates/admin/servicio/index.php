@@ -1,25 +1,26 @@
 <div class="my-5 mx-5">
-    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-5">
-        <div class="mb-3 mb-md-0">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
             <h2 class="fw-bold mb-1">
                 Servicios
+                <span class="badge bg-primary-subtle text-primary rounded-pill fs-6 align-middle ms-2"><?= count($servicios); ?></span>
             </h2>
             <p class="text-muted mb-0">
                 Administra el catálogo de servicios, modifica precios base y gestiona la disponibilidad para las citas del taller.
             </p>
         </div>
         <?php if (in_array('servicio.crear', $_SESSION['permisos'])): ?>
-            <a href="servicio.php?accion=create" class="btn btn-success mt-3">
+            <a href="servicio.php?accion=create" class="btn btn-success">
                 <i class="fa-solid fa-plus me-1"></i> Agregar
             </a>
         <?php endif; ?>
     </div>
 
-    <div class="row">
+    <div class="row g-4">
         <?php if (!empty($servicios)): ?>
             <?php foreach ($servicios as $servicio): ?>
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100 d-flex flex-column">
+                <div class="col-md-6 col-xl-3">
+                    <div class="card h-100 d-flex flex-column shadow-sm border-0">
                         <div class="card-header p-0 d-flex align-items-center justify-content-center bg-light" style="height: 100px; overflow: hidden;">
                             <img src="/assets/images/uploads/<?php echo $servicio['imagen']; ?>" 
                                 class="img-fluid" 

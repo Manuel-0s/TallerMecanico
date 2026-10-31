@@ -2,26 +2,29 @@
 <?php $vehiculos = $vehiculos ?? []; ?>
 
 <div class="my-5 mx-5">
+    <div class="mb-4">
+        <h2 class="fw-bold mb-1"><?php echo ($datos['accion'] === 'update') ? 'Actualizar Cita' : 'Registrar Cita' ?></h2>
+        <p class="text-muted mb-0">Captura los datos de la cita.</p>
+    </div>
+
     <form enctype="multipart/form-data"
         action="cita.php?accion=<?php echo $accion ?? 'create';?>&id=<?php echo $_GET['id'] ?? $datos['id'] ?? '' ?>" 
         method="post" 
-        class="card">
+        class="card shadow-sm border-0">
 
         <input type="hidden" name="id" value="<?php echo $_GET['id'] ?? $datos['id'] ?? ''; ?>">
 
-        <div class="card-header bg-dark text-white">
-            <h3><?php echo ($datos['accion'] === 'update') ? 'Actualizar Cita' : 'Registrar Cita' ?></h3>
-        </div>
+        <div class="card-body p-4">
+            <h6 class="text-uppercase text-secondary fw-semibold small mb-3">Detalles de la cita</h6>
 
-        <div class="card-body col-12 col-lg-12 d-flex gap-3">
             <div class="col-md-8">
                 <div class="mb-3">
-                    <label class="form-label text-muted">Fecha y hora *</label>
+                    <label class="form-label">Fecha y hora <span class="text-danger">*</span></label>
                     <input type="datetime-local" name="data[fecha]" value="<?php echo $datos['fecha'] ?? ''; ?>" class="form-control" id="fecha" required>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label text-muted">Estatus *</label>
+                    <label class="form-label">Estatus <span class="text-danger">*</span></label>
                     <select name="data[estatus]" class="form-select" id="estatus" required>
                         <?php $estatusActual = $datos['estatus'] ?? 'programada'; ?>
                         <?php foreach (['programada', 'atendida', 'cancelada'] as $estatus): ?>
@@ -33,7 +36,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label text-muted">Vehículo *</label>
+                    <label class="form-label">Vehículo <span class="text-danger">*</span></label>
                     <select class="form-select" name="data[id_vehiculo]" id="id_vehiculo" required>
                         <option value="">Seleccione un vehículo</option>
                         <?php foreach ($vehiculos as $vehiculo): ?>
@@ -46,15 +49,15 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label text-muted">Observaciones</label>
+                    <label class="form-label">Observaciones</label>
                     <textarea name="data[observaciones]" class="form-control" id="observaciones" rows="4" maxlength="255" placeholder="Describe el servicio o problema del vehículo."><?php echo htmlspecialchars($datos['observaciones'] ?? ''); ?></textarea>
                 </div>
             </div>
         </div>
 
-        <div class="card-footer d-flex justify-content-end gap-2 bg-white py-3 border-0">
+        <div class="card-footer bg-white border-0 d-flex justify-content-end gap-2 py-3 px-4">
+            <a href="cita.php" class="btn btn-outline-secondary">Cancelar</a>
             <input type="submit" name="enviar" class="btn btn-primary" value="Guardar">
-            <a href="cita.php" class="btn btn-secondary">Cancelar</a>
         </div>
     </form>
 </div>

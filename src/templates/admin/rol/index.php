@@ -1,24 +1,25 @@
 <?php $roles = $roles ?? [] ?>
 
 <div class="my-5 mx-5">
-    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-5">
-        <div class="mb-3 mb-md-0">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
             <h2 class="fw-bold mb-1">
                 Roles
+                <span class="badge bg-primary-subtle text-primary rounded-pill fs-6 align-middle ms-2"><?= count($roles); ?></span>
             </h2>
+            <p class="text-muted mb-0">Administra los roles y sus permisos de acceso al sistema.</p>
         </div>
-        <a href="rol.php?accion=create" class="btn btn-success mt-3">
+        <a href="rol.php?accion=create" class="btn btn-success">
                 <i class="fa-solid fa-plus me-1"></i> Registrar
         </a>
     </div>
         
-    <section class="card shadow-sm border-0 mb-4 p-3">
+    <section class="card shadow-sm border-0">
         <div class="table-responsive">
             <table class="table table-hover mb-0 align-middle">
                 <thead class="table-light">
                     <tr>
-                        <th scope="col" style="width: 5%">#</th>
-                        <th scope="col">Rol</th>
+                        <th scope="col" class="ps-4">Rol</th>
                         <th scope="col">Descripción</th>
                         <th scope="col" class="text-end pe-4" style="width: 10%">Acciones</th>
                     </tr>
@@ -26,10 +27,9 @@
                 <tbody class="table-group-divider">
                     <?php foreach ($roles as $rol): ?>
                     <tr>
-                        <th scope="row"><?php echo $rol['id_rol']; ?></span></th>
-                        <td><?php echo $rol['rol']; ?></td>
+                        <td class="ps-4"><?php echo $rol['rol']; ?></td>
                         <td><?php echo $rol['descripcion']; ?></td>
-                        <td class="text-end">
+                        <td class="text-end pe-4">
                             <div class="btn-group btn-group-sm" role="group" aria-label="Acciones de cliente">
                                 <a href="rol.php?accion=update&id=<?= $rol['id_rol']; ?>" 
                                 class="btn btn-outline-primary" 
@@ -47,7 +47,12 @@
                     </tr>
                     <?php endforeach; ?>
                     <?php if (empty($roles)): ?>
-                        <tr><td colspan="5" class="text-center text-muted py-5">No hay roles registrados.</td></tr>
+                        <tr>
+                            <td colspan="4" class="text-center text-muted py-5">
+                                <i class="fa-solid fa-user-shield fa-2x mb-2 d-block"></i>
+                                No hay roles registrados.
+                            </td>
+                        </tr>
                     <?php endif; ?>
                 </tbody>
             </table>

@@ -1,11 +1,8 @@
 # Dependencias
-/vendor/
+/src/vendor/
 
 # Archivos subidos dinámicamente por usuarios 
-/src/images/uploads/*
-
-# Dependencies
-/src/vendor/
+\src\assets\images\uploads*
 
 # credenciales
 .env

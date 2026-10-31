@@ -7,67 +7,72 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../../assets/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
+    
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
-            <nav id="sidebar" class="col-2 d-md-block text-black sidebar min-vh-100 p-3">
-                <div class="position-sticky pt-3">
-                    <h4 class="text-white text-center mb-4">
-                        Taller Mecánico
-                    </h4>
-                    <hr>
-                    <ul class="nav flex-column nav-pills">
-                        <li class="nav-item mb-2">
-                            <a href="index.php" class="nav-link text-black" aria-current="page">
-                                <i class="fa-solid fa-house"></i> Inicio
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a href="cita.php" class="nav-link text-black">
-                                <i class="fa-solid fa-calendar"></i> Citas
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a href="cliente.php" class="nav-link text-black">
-                                <i class="fa-solid fa-user-group"></i> Clientes
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a href="vehiculo.php" class="nav-link text-black">
-                                <i class="fa-solid fa-car"></i> Vehículos
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a href="servicio.php" class="nav-link text-black">
-                                <i class="fa-solid fa-wrench"></i> Servicios
-                            </a>
-                        </li>
+
+            <nav id="sidebar" class="col-2 p-3">
+                <div id="sidebar-content" class="position-sticky card pt-3 border-0 shadow-sm rounded-4" style="height: calc(100vh - 2rem);">
+                        
+                    <a href="index.php" class="d-flex align-items-center gap-2 px-4 pt-4 pb-3 text-body text-decoration-none">
+                        <i class="fa-solid fa-screwdriver-wrench fs-4"></i>
+                        <span class="fw-semibold">Taller Mecánico</span>
+                    </a>
+
+                    <hr class="mx-4 my-0 opacity-25">
+
+                    <div class="p-3">
+                        <ul class="nav flex-column nav-pills">
+                            <li class="nav-item mb-2">
+                                <a href="index.php" class="nav-link text-black" aria-current="page">
+                                    <i class="fa-solid fa-house"></i> Inicio
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a href="cita.php" class="nav-link text-black">
+                                    <i class="fa-solid fa-calendar"></i> Citas
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a href="cliente.php" class="nav-link text-black">
+                                    <i class="fa-solid fa-user-group"></i> Clientes
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a href="vehiculo.php" class="nav-link text-black">
+                                    <i class="fa-solid fa-car"></i> Vehículos
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a href="servicio.php" class="nav-link text-black">
+                                    <i class="fa-solid fa-wrench"></i> Servicios
+                                </a>
+                            </li>
+                        </ul>
+
                         <?php if (in_array('Administrador', $_SESSION['roles'])): ?>
-                        <hr>
-                        <li class="nav-item mb-2">
-                            <a href="empleado.php" class="nav-link text-black">
-                                <i class="fa-solid fa-user"></i> Empleados
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a href="rol.php" class="nav-link text-black">
-                                <i class="fa-solid fa-address-card"></i> Roles
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a href="permiso.php" class="nav-link text-black">
-                                <i class="fa-solid fa-unlock"></i> Permisos
-                            </a>
-                        </li>
-                        <hr>
+                        <p class="text-uppercase text-secondary fw-bold small px-3 mt-4 mb-2">Administración</p>
+                        <ul class="nav flex-column nav-pills">
+                            <li class="nav-item mb-2">
+                                <a href="empleado.php" class="nav-link text-black">
+                                    <i class="fa-solid fa-user"></i> Empleados
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a href="rol.php" class="nav-link text-black">
+                                    <i class="fa-solid fa-address-card"></i> Roles
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a href="permiso.php" class="nav-link text-black">
+                                    <i class="fa-solid fa-key"></i> Permisos
+                                </a>
+                            </li>
+                        </ul>
                         <?php endif; ?>
-                        <li class="nav-item mb-2">
-                            <a href="#" class="nav-link text-black">
-                                <i class="fa-solid fa-gear"></i> Configuración
-                            </a>
-                        </li>
-                    </ul>
+                    </div>
                 </div>
             </nav>
    
@@ -92,7 +97,9 @@
                                     <ul class="dropdown-menu dropdown-menu-end border-dark-subtle shadow-sm rounded-3">
                                         <li><a class="dropdown-item" href="#">Mi perfil</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="login.php?accion=logout">Cerrar sesión</a></li>
+                                        <li>
+                                            <a class="dropdown-item text-danger" href="login.php?accion=logout"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+                                        </li>
                                     </ul>
                                 </li>
                             </ul>
