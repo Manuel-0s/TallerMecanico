@@ -34,7 +34,9 @@
         case 'update':
             if (isset($_POST['enviar'])) {  
                 $data = $_POST['data'];
-                $data['foto'] = $uploader->cargarArchivo('foto', __DIR__ . '/../assets/images/uploads');
+                $empleado = $app->getOne($id);
+                $foto = $uploader->cargarArchivo('foto', __DIR__ . '/../assets/images/uploads');
+                $data['foto'] = $foto ?? $empleado['foto'];
                 $datos = $app->update($id, $data);
                 $empleados = $app->getAll();
                 include_once __DIR__ . '/../templates/empleado/index.php';

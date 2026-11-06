@@ -62,8 +62,9 @@ class Empleado extends GenericCRUD {
     function getAll() {
         $sql = "SELECT
                 e.*,
-                u.correo,
+                u.correo,   
                 u.activo,
+                u.contrasena,
                 COALESCE(JSON_AGG(r.rol ORDER BY r.rol) FILTER (WHERE r.id_rol IS NOT NULL), '[]') AS roles
             FROM empleado e
                     JOIN usuario u            ON e.id_usuario = u.id_usuario
