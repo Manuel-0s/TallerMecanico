@@ -3,10 +3,12 @@
     include_once __DIR__ . '/models/rol/rol.class.php';
     include_once __DIR__ . '/models/usuario/usuario_rol.class.php';
     include_once __DIR__ . '/models/auth/auth.class.php';
+    include_once __DIR__ . '/../helpers/FileUploader.php';
 
     $appAuth = new Auth();
     $appAuth -> verificarRol('Administrador');
 
+    $uploader = new FileUploader();
     $app = new Empleado();
     $appRol = new Rol();
     $appUsuarioRol = new UsuarioRol();
@@ -19,6 +21,7 @@
         case 'create':
             if(isset($_POST['enviar'])) {
                 $data = $_POST['data'];
+                $data['foto'] = $uploader->cargarArchivo('foto', __DIR__ . '/../assets/images/uploads');
                 $datos = $app -> create($data);
                 $empleados = $app->getAll();
                 include_once __DIR__ . '/../templates/empleado/index.php';
@@ -31,7 +34,7 @@
         case 'update':
             if (isset($_POST['enviar'])) {  
                 $data = $_POST['data'];
-                $id = $_POST['id'] ?? $_GET['id'] ?? null;
+                $data['foto'] = $uploader->cargarArchivo('foto', __DIR__ . '/../assets/images/uploads');
                 $datos = $app->update($id, $data);
                 $empleados = $app->getAll();
                 include_once __DIR__ . '/../templates/empleado/index.php';

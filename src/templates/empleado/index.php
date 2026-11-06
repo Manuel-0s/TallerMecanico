@@ -41,7 +41,12 @@
                             <td>
                                 <div class="d-flex align-items-center gap-3">
                                     <div class="avatar avatar-md">
-                                        <img src="<?= $empleado['foto'] ?? 'https://via.placeholder.com/40' ?>" alt="<?= $nombreCompleto ?>" class="rounded-circle">
+                                        <img src="<?= !empty($empleado['foto'])
+                                            ? '/assets/images/uploads/' . htmlspecialchars($empleado['foto'])
+                                            : '/assets/images/public/avatar.png' ?>"
+                                            class="avatar-img rounded-circle" alt="<?= htmlspecialchars($nombreCompleto) ?>"
+                                            max-width="60" height="60"
+                                        >
                                     </div>
                                     <div class="lh-sm">
                                         <p class="mb-0"><b><?= $nombreCompleto ?></b></p>
