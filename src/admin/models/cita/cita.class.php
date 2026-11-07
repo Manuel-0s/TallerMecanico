@@ -114,6 +114,61 @@ Class Cita extends genericCRUD{
             throw $e;
         }
     }
-}
 
+    function getServiciosByCita($id){
+        $datos = [];
+        if (is_numeric($id)){
+            $sql = "SELECT cs.id_servicio FROM cita c
+                    JOIN cita_servicio cs ON c.id_cita = cs.id_cita
+                    WHERE c.id_cita = :id";
+            $stmt = $this -> db -> prepare($sql);
+            $stmt -> bindParam(":id", $id, PDO::PARAM_INT);
+            $stmt -> execute();
+            $datos = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        }
+        return $datos;
+    }
+
+    function getOne($id) {
+        $sql = "SELECT c.*, v.matricula FROM cita c
+                JOIN vehiculo v ON c.id_vehiculo = v.id_vehiculo
+                WHERE c.id_cita = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function update($id, $data) { 
+        $this->db->beginTransaction();
+        try {
+            parent::update($id, $data);
+
+            if (isset($data['id_servicio'])) {
+                $sql = "DELETE FROM cita_servicio 
+                        WHERE id_cita = :id_cita";
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindParam(':id_cita', $id, PDO::PARAM_INT);
+                $stmt->execute();
+
+                foreach ($data['id_servicio'] as $idRol) {
+                    $sql = "INSERT INTO cita_servicio (id_cita, id_servicio) 
+                            VALUES (:id_cita, :id_servicio)";
+                    $stmt = $this->db->prepare($sql);
+                    $stmt->bindParam(':id_cita', $id, PDO::PARAM_INT);
+                    $stmt->bindParam(':id_servicio', $idRol, PDO::PARAM_INT);
+                    $stmt->execute();
+                }
+            }
+
+            $this->db->commit();
+            return true;
+        } catch (Exception $e) {
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+            throw $e;
+        }
+    }
+}
 ?>

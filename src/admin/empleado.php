@@ -4,7 +4,7 @@
     include_once __DIR__ . '/models/usuario/usuario_rol.class.php';
     include_once __DIR__ . '/models/auth/auth.class.php';
     include_once __DIR__ . '/../helpers/FileUploader.php';
-
+    
     $appAuth = new Auth();
     $appAuth -> verificarRol('Administrador');
 

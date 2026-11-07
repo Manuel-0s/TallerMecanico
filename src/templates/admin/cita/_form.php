@@ -166,7 +166,7 @@
                 <?php foreach ($servicios as $servicio): ?>
                     <?php 
                         $servicioId = (int) $servicio['id_servicio']; 
-                        $checked = in_array($servicioId, $datos['servicios'] ?? [], true) ? 'checked' : '';
+                        $checked = in_array($servicioId, $datos['id_servicios'] ?? [], true) ? 'checked' : '';
                     ?>
                     <div class="col-md-4 col-lg-2">
                         <input

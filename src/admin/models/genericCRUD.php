@@ -44,6 +44,22 @@ Class GenericCRUD extends Sistema {
         return $datos;
     }
 
+    function getPaginado(int $pagina = 1, int $porPagina = 10): array {
+        $pagina = max(1, $pagina);
+        $offset = ($pagina - 1) * $porPagina;
+
+        $sql = "SELECT * FROM {$this->table} ORDER BY {$this->primaryKey} DESC LIMIT :limite OFFSET :offset";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':limite', $porPagina, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    function contar(): int {
+        return (int) $this->db->query("SELECT COUNT(*) FROM {$this->table}")->fetchColumn();
+    }
+
     function update($id, $data){
         $afectados = 0;
         if(is_numeric($id) && !empty($data)){

@@ -5,7 +5,6 @@
         <div>
             <h2 class="fw-bold mb-1">
                 Citas
-                <span class="badge bg-primary-subtle text-primary rounded-pill fs-6 align-middle ms-2"><?= count($citas); ?></span>
             </h2>
             <p class="text-muted mb-0">
                 Administra las citas programadas y el seguimiento de los servicios del taller.
@@ -61,4 +60,5 @@
             </table>
         </div>
     </section>
+    <?php include __DIR__ . '/../../../admin/paginacion.php'; ?>
 </div>
