@@ -1,6 +1,15 @@
 <?php if (isset($alerta['mensaje']) && isset($alerta['tipo'])): ?>
-    <div class="alert alert-<?= $alerta['tipo']; ?> alert-dismissible fade show" role="alert">
-        <?= $alerta['mensaje']; ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: '<?= $alerta['tipo'] === 'danger' ? 'error' : htmlspecialchars($alerta['tipo']); ?>',
+            title: <?= json_encode($alerta['mensaje']); ?>,
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
+        });
+    });
+</script>
 <?php endif; ?>

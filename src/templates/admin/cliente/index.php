@@ -1,3 +1,5 @@
+<?php  $clientes = $clientes ?? [] ?>
+
 <div class="my-5 mx-5">
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
         <div>

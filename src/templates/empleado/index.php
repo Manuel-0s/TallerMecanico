@@ -81,15 +81,19 @@
 
                                     <?php if (!$esPropio): ?>          
                                         <a href="empleado.php?accion=disable&id=<?= $empleado['id_empleado']; ?>" 
-                                            class="btn btn-outline-<?php echo $empleado['activo'] ? 'warning' : 'success'; ?>" 
-                                            title="Desactivar usuario"
-                                            onclick="return confirm('¿Estás seguro de que deseas desactivar a este empleado?');">
+                                            class="btn btn-outline-<?php echo $empleado['activo'] ? 'warning' : 'success'; ?> js-confirmar"
+                                            data-titulo="<?php echo $empleado['activo'] ? '¿Desactivar este usuario?' : '¿Activar este usuario?'; ?>"
+                                            data-mensaje="<?php echo $empleado['activo'] ? 'El usuario no podrá iniciar sesión hasta que sea activado nuevamente.' : 'El usuario podrá iniciar sesión nuevamente.'; ?>"
+                                            data-icono="warning"
+                                            title="Desactivar usuario">
                                                 <i class="fa-solid <?php echo $empleado['activo'] ? 'fa-user-slash' : 'fa-user-check'; ?>"></i>
                                         </a>
-                                        <a href="empleado.php?accion=delete&id=<?= $empleado['id_empleado']; ?>" 
-                                            class="btn btn-outline-danger" 
-                                            title="Eliminar empleado"
-                                            onclick="return confirm('¿Estás seguro de que deseas eliminar a este empleado?');">
+                                        <a href="empleado.php?accion=delete&id=<?= $empleado['id_empleado']; ?> js-confirmar"
+                                            data-titulo="¿Eliminar este empleado?"
+                                            data-mensaje="Esta acción no se puede deshacer. Se eliminará toda la información asociada a este empleado."
+                                            data-icono="error" 
+                                            class="btn btn-outline-danger js-confirmar" 
+                                            title="Eliminar empleado">
                                                 <i class="fa-solid fa-trash"></i>
                                         </a>
                                     <?php endif; ?>
