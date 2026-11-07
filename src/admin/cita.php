@@ -1,15 +1,17 @@
 <?php 
     ob_start();
-    include_once __DIR__ . '/models/cita/cita.class.php';
-    include_once __DIR__ . '/models/vehiculo/vehiculo.class.php';
-    include_once __DIR__ . '/models/auth/auth.class.php';
-    include_once __DIR__ . '/../helpers/pdf.php';
+    require_once __DIR__ . '/models/cita/cita.class.php';
+    require_once __DIR__ . '/models/vehiculo/vehiculo.class.php';
+    require_once __DIR__ . '/models/auth/auth.class.php';
+    require_once __DIR__ . '/models/servicio/servicios.class.php';
+    require_once __DIR__ . '/../helpers/pdf.php';
 
     $appAuth = new Auth();
     $appAuth -> verificarRol('Administrador');
 
     $app = new Cita();
     $appVehiculo = new Vehiculo();
+    $appServicio = new Servicio();
     $accion = $_GET['accion'] ?? 'read';
     $id = $_GET['id'] ?? null;
 
@@ -31,16 +33,23 @@
 
     include_once __DIR__ . '/../templates/admin/sidebar.html';
 
-    $vehiculos = $appVehiculo->getAll();
-
     switch ($accion) {
         case 'create':
             if(isset($_POST['enviar'])) {
+                echo "<pre>";
+                print_r($_POST);
+                echo "</pre>";
                 $data = $_POST['data'];
-                $datos = $app -> create($data);
-                $citas = $app->getAll();
+                if ($_POST["tipo_registro"] === "nuevo") {
+                    $app -> createNew($data);
+                } else {
+                    $app -> createExist($data);
+                }   
+                 $citas = $app->getAll();
                 include_once __DIR__ . '/../templates/admin/cita/index.php';
             } else {
+                $servicios = $appServicio->getAll();
+                $vehiculos = $appVehiculo->getAll();
                 $datos['accion'] = 'create';
                 include_once __DIR__ . '/../templates/admin/cita/_form.php'; 
             }
@@ -54,6 +63,7 @@
                 include_once __DIR__ . '/../templates/admin/cita/index.php';
             } else {
                 $datos = $app -> getOne($id);
+                $servicios = $appServicio->getAll();
                 $datos['accion'] = 'update';
                 include_once __DIR__ . '/../templates/admin/cita/_form.php'; 
             }

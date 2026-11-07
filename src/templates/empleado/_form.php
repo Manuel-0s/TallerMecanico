@@ -17,7 +17,7 @@
         <input type="hidden" name="id" value="<?php echo $_GET['id'] ?? $datos['id'] ?? ''; ?>">
 
         <div class="card-body p-4">
-            <h6 class="text-uppercase text-secondary fw-semibold small mb-3">Datos personales</h6>
+            <h6 class="text-uppercase text-secondary fw-bold small mb-3">Datos personales</h6>
 
             <div class="row g-4 mb-4">
 
@@ -48,29 +48,30 @@
                 <div class="col-md-9">
                     <div class="row g-3">
                         <div class="col-md-4">
-                            <label class="form-label">Nombre <span class="text-danger">*</span></label>
+                            <label class="form-label text-secondary">Nombre <span class="text-danger">*</span></label>
                             <input type="text" name="data[nombre]" value="<?php echo $datos['nombre'] ?? '' ?>" 
-                                    class="form-control" id="nombre" 
+                                    class="form-control bg-light" id="nombre" 
                                     minlength="1" maxlength="50" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" required>
                         </div>
             
                         <div class="col-md-4">
-                            <label class="form-label">Primer Apellido <span class="text-danger">*</span></label>
+                            <label class="form-label text-secondary">Primer Apellido <span class="text-danger">*</span></label>
                             <input type="text" name="data[primer_apellido]" value="<?php echo $datos['primer_apellido'] ?? '' ?>"
-                                    class="form-control" id="primer_apellido" 
+                                    class="form-control bg-light" id="primer_apellido" 
                                     minlength="1" maxlength="50" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" required>
                         </div>
             
                         <div class="col-md-4">
-                            <label class="form-label">Segundo Apellido</label>
-                            <input type="text" name="data[segundo_apellido]" value="<?php echo $datos['segundo_apellido'] ?? '' ?>" class="form-control" id="segundo_apellido"
-                            minlength="1" maxlength="50" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$">
+                            <label class="form-label text-secondary">Segundo Apellido</label>
+                            <input type="text" name="data[segundo_apellido]" value="<?php echo $datos['segundo_apellido'] ?? '' ?>" 
+                                    class="form-control bg-light" id="segundo_apellido"
+                                    minlength="1" maxlength="50" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$">
                         </div>
             
                         <div class="col-md-4">
-                            <label for="rfc" class="form-label">RFC <span class="text-danger">*</span></label>
+                            <label for="rfc" class="form-label text-secondary">RFC <span class="text-danger">*</span></label>
                             <input type="text" name="data[rfc]" value="<?php echo $datos['rfc'] ?? '' ?>" 
-                                    class="form-control text-uppercase" id="rfc" 
+                                    class="form-control text-uppercase bg-light" id="rfc" 
                                     minlength="13" maxlength="13" pattern="^[A-Za-z0-9]{13}$" placeholder="ABCD123456XXX" required>
                         </div>
                     </div>
@@ -78,24 +79,24 @@
             </div>
 
             <hr class="text-secondary-emphasis">
-            <h6 class="text-uppercase text-secondary fw-semibold small mb-3">Cuenta de acceso</h6>
+            <h6 class="text-uppercase text-secondary fw-bold small mb-3">Cuenta de acceso</h6>
 
             <div class="row g-3 mb-4">
                 <div class="col-md-6">
-                    <label class="form-label">Correo electrónico <span class="text-danger">*</span></label>
+                    <label class="form-label text-secondary">Correo electrónico <span class="text-danger">*</span></label>
                     <div class="input-group"> 
                         <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-envelope"></i></span>
                         <input type="email" name="data[correo]" 
-                            value="<?php echo $datos['correo'] ?? ''; ?>" class="form-control" id="correo" 
+                            value="<?php echo $datos['correo'] ?? ''; ?>" class="form-control bg-light" id="correo" 
                             pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                             placeholder="usuario@dominio.com" required>
                     </div>
                 </div> 
                 <div class="col-md-6">
-                    <label class="form-label">Contraseña <span class="text-danger">*</span></label>
+                    <label class="form-label text-secondary">Contraseña <span class="text-danger">*</span></label>
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon2"><i class="fa-solid fa-key"></i></span>
-                        <input type="password" name="data[contrasena]" class="form-control" id="contrasena"
+                        <input type="password" name="data[contrasena]" class="form-control bg-light" id="contrasena"
                                 minlength="8" maxlength="50" placeholder="Mínimo 8 caracteres" 
                                 <?php echo ($datos['accion'] === 'update') ? '' : 'required'; ?>>
                     </div>
@@ -104,7 +105,7 @@
 
             <hr class="text-secondary-emphasis">
  
-            <h6 class="text-uppercase text-secondary fw-semibold small mb-1">Roles</h6>
+            <h6 class="text-uppercase text-secondary fw-bold small mb-1">Roles</h6>
             <p class="text-muted small mb-3">El rol <strong>Empleado</strong> se asigna automáticamente. Selecciona los roles adicionales.</p>
 
             <div class="d-flex flex-wrap gap-2" aria-label="Roles del empleado">
