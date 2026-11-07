@@ -41,6 +41,10 @@
                                 <a href="cita.php?accion=delete&id=<?php echo $cita['id_cita']; ?>" type="button" class="btn btn-outline-danger btn-sm">
                                     <i class="fa-solid fa-xmark"></i>
                                 </a>
+                                <a href="cita.php?accion=pdf&id=<?php echo $cita['id_cita']; ?>" 
+                                    target="_blank" class="btn btn-outline-secondary btn-sm" title="Comprobante PDF">
+                                    <i class="fa-solid fa-file-pdf"></i>
+                                </a>
                             </div>
                         </td>
                     </tr>
