@@ -139,6 +139,17 @@ Class Cita extends genericCRUD{
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    function getAll() {
+        $sql = "SELECT ct.fecha, s.servicio, v.*
+                FROM cita ct
+                JOIN cita_servicio cs ON ct.id_cita = cs.id_cita
+                JOIN servicio s ON cs.id_servicio = s.id_servicio
+                JOIN vehiculo v ON ct.id_vehiculo = v.id_vehiculo
+                WHERE ct.estatus = 'programada'";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     function update($id, $data) { 
         $this->db->beginTransaction();
         try {
