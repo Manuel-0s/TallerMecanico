@@ -1,16 +1,61 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const etiquetas = {
+        programada: 'Programadas',
+        atendida:   'Atendidas',
+        cancelada:  'Canceladas'
+    };
+
     const calendarEl = document.getElementById("calendar");
 
     const calendar = new FullCalendar.Calendar(calendarEl, {
         editable: true,
         initialView: "timeGridWeek",
         locale: 'es',
+        nowIndicator: true,
+        timeZone: 'local',
+        slotMinTime: '08:00:00', 
+        slotMaxTime: '20:00:00', 
+        
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
             right: 'dayGridDay,timeGridWeek,dayGridMonth,listWeek'
         },
-        events: '/admin/api/cita/index.php'
+        events: '/admin/api/cita/index.php',
+
+        eventClick: function (info) {
+            const ev = info.event;
+            const p  = ev.extendedProps;
+
+            const fecha = ev.start.toLocaleString('es-MX', {
+                dateStyle: 'full',
+                timeStyle: 'short'
+            });
+
+           Swal.fire({
+                title: ev.title,
+                html: 
+                `
+                    <p class="mb-0 text-capitalize"><strong>Fecha:</strong> ${fecha}</p>
+                    <p class="mb-0 text-capitalize"><strong>Estatus:</strong> ${p.estatus}</p>
+                    <p class="mb-0 text-capitalize"><strong>Teléfono:</strong> ${p.telefono}</p>
+                    <p class="mb-0 text-capitalize"><strong>Correo:</strong> ${p.correo}</p>
+                    <p class="mb-0 text-capitalize"><strong>Marca:</strong> ${p.marca}</p>
+                    <p class="mb-0 text-capitalize"><strong>Modelo:</strong> ${p.modelo}</p>
+                    <p class="mb-0 text-capitalize"><strong>Año:</strong> ${p.anio}</p>
+                `,
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Save",
+                denyButtonText: `Don't save`
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire("Saved!", "", "success");
+                }
+                else if (result.isDenied) Swal.fire("Changes are not saved", "", "info");
+            });
+        }
     });
+
     calendar.render();
 });
