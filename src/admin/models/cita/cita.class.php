@@ -184,5 +184,21 @@ Class Cita extends genericCRUD{
             throw $e;
         }
     }
+
+    function generarOrden($id, $estatus) {
+        $permitidos = ['programada', 'atendida', 'cancelada'];
+
+        if (!is_numeric($id) || !in_array($estatus, $permitidos, true)) {
+            return false;
+        }
+
+        $sql = "UPDATE cita SET estatus = :estatus WHERE id_cita = :id";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':estatus', $estatus, PDO::PARAM_STR);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->rowCount() > 0;
+    }
 }
 ?>

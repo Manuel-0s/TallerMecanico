@@ -95,11 +95,26 @@
 
                             <ul class="navbar-nav">
                                 <li class="nav-item dropdown">
+                                    <?php
+                                        $usuario = $_SESSION['usuario'];
+                                        $nombreUsuario = $usuario['nombre'];
+                                        $rolesUsuario = $_SESSION['roles'] ?? [];
+                                        $esAdministrador = in_array('Administrador', $rolesUsuario, true);
+                                        $fotoUsuario = !empty($usuario['foto'])
+                                            ? '/assets/images/uploads/' . $usuario['foto']
+                                            : '/assets/images/public/avatar.png';
+                                    ?>
                                     <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span class="rounded-circle bg-dark text-white d-inline-flex justify-content-center align-items-center fw-semibold small" style="width: 2rem; height: 2rem;">
-                                            <?= strtoupper(substr($_SESSION['usuario']['nombre'] ?? 'U', 0, 1)); ?>
+                                        <img src="<?= htmlspecialchars($fotoUsuario, ENT_QUOTES, 'UTF-8') ?>"
+                                            class="rounded-circle object-fit-cover"
+                                            style="width: 2.5rem; height: 2.5rem;"
+                                            alt="Foto de <?= htmlspecialchars($nombreUsuario, ENT_QUOTES, 'UTF-8') ?>">
+                                        <span class="d-flex flex-column lh-sm">
+                                            <span class="small fw-semibold"><?= htmlspecialchars($nombreUsuario, ENT_QUOTES, 'UTF-8') ?></span>
+                                            <span class="text-secondary" style="font-size: 0.75rem;">
+                                                <?= $esAdministrador ? 'Administrador' : '' ?>
+                                            </span>
                                         </span>
-                                        <span class="small"><?php echo ($_SESSION['usuario']['nombre'] ?? 'Usuario'); ?></span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end border-dark-subtle shadow-sm rounded-3">
                                         <li><a class="dropdown-item" href="#">Mi perfil</a></li>

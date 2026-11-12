@@ -25,14 +25,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         eventClick: function (info) {
             const ev = info.event;
-            const p  = ev.extendedProps;
+            const p = ev.extendedProps;
+            const fecha = ev.start.toLocaleString('es-MX', { dateStyle: 'full', timeStyle: 'short' });
+            const programada = p.estatus === 'programada';
 
-            const fecha = ev.start.toLocaleString('es-MX', {
-                dateStyle: 'full',
-                timeStyle: 'short'
-            });
-
-           Swal.fire({
+            Swal.fire({
                 title: ev.title,
                 html: 
                 `
@@ -44,15 +41,21 @@ document.addEventListener("DOMContentLoaded", function () {
                     <p class="mb-0 text-capitalize"><strong>Modelo:</strong> ${p.modelo}</p>
                     <p class="mb-0 text-capitalize"><strong>Año:</strong> ${p.anio}</p>
                 `,
-                showDenyButton: true,
-                showCancelButton: true,
-                confirmButtonText: "Save",
-                denyButtonText: `Don't save`
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire("Saved!", "", "success");
+                showConfirmButton: programada,
+                confirmButtonText: 'Generar Orden',
+                confirmButtonColor: '#198754',
+                showDenyButton: programada,
+                denyButtonText: 'Cancelar cita',
+                showCloseButton: true
+            }).then(async (result) => {
+                let nuevo = null;
+                if (result.isConfirmed) nuevo = 'atendida';
+                else if (result.isDenied) nuevo = 'cancelada';
+                if (!nuevo) return;
+
+                if (await cambiarEstatusCita(ev.id, nuevo)) {
+                    calendar.refetchEvents(); 
                 }
-                else if (result.isDenied) Swal.fire("Changes are not saved", "", "info");
             });
         }
     });
