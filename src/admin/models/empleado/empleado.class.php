@@ -84,9 +84,15 @@ class Empleado extends GenericCRUD {
             $empleado = $this->getOne($id);
             $data['id_usuario'] = $empleado['id_usuario'];
             parent::update($id, $data);
-
+    
             if (!empty($data['contrasena'])) {
                 $data['contrasena'] = password_hash($data['contrasena'], PASSWORD_DEFAULT);
+            } else {
+                $sql= "SELECT contrasena FROM usuario WHERE id_usuario = :id_usuario";
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindParam(':id_usuario', $empleado['id_usuario'], PDO::PARAM_INT);
+                $stmt->execute();
+                $data['contrasena'] = $stmt->fetch(PDO::FETCH_ASSOC)['contrasena'];
             }
 
             $sql = "UPDATE usuario 

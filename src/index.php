@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +8,9 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/servicios.css">
 </head>
-<body> 
+<body>
     <header class="bg-light py-3">
         <nav class="navbar navbar-expand-lg">
             <div class="container">
@@ -47,7 +48,7 @@
                                 <li><a class="dropdown-item" href="pages/values.html">Valores</a></li>
                             </ul>
                         </li>
-                         <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" href="pages/contact.html">Contacto</a>
                         </li>
                     </ul>
@@ -58,18 +59,18 @@
 
     <main>
         <div class="container text-center">
-            <div class="row">
-                <div class="col-7">
+            <div class="row align-items-center">
+                <div class="col-12 col-lg-7">
                     <section class="text-start">
                         <h1 class="display-3"><b>Bienvenido a nuestro Taller Mecánico</b></h1>
                         <p class="lead py-3">Ofrecemos servicios de reparación y mantenimiento de vehículos.</p>
                         <a href="pages/appointment.html" class="btn btn-outline-primary btn-lg">Agendar Cita</a>
                     </section>
                 </div>
-                <div class="col-5">
+                <div class="col-12 col-lg-5">
                     <div class="container text-center py-4">
-                        <div class="row g-5">
-                            <div class="col p-3 rounded-4 text-center d-flex flex-column align-items-center card-stat">                                    
+                        <div class="row g-3 g-lg-5">
+                            <div class="col p-3 rounded-4 text-center d-flex flex-column align-items-center card-stat">
                                 <div class="mb-3">
                                     <i class="fa-solid fa-star fa-2xl" style="color: rgb(255, 212, 59);"></i>
                                 </div>
@@ -79,7 +80,7 @@
                                 </span>
                             </div>
 
-                            <div class="col p-3 rounded-4 text-center d-flex flex-column align-items-center card-stat"> 
+                            <div class="col p-3 rounded-4 text-center d-flex flex-column align-items-center card-stat">
                                 <div class="mb-3">
                                     <i class="fa-solid fa-file-invoice-dollar fa-2xl text-success"></i>
                                 </div>
@@ -89,7 +90,7 @@
                                 </span>
                             </div>
 
-                            <div class="col p-3 rounded-4  text-center d-flex flex-column align-items-center card-stat"> 
+                            <div class="col p-3 rounded-4 text-center d-flex flex-column align-items-center card-stat">
                                 <div class="mb-3">
                                     <i class="fa-solid fa-scale-balanced fa-2xl text-primary"></i>
                                 </div>
@@ -99,63 +100,25 @@
                                 </span>
                             </div>
                         </div>
-                    </div> 
-                </div>
-            </div> 
-
-            <div class="row">
-                <div class="col-12 py-5 text-center">
-                    <h2 class="display-5"><b>Nuestros Servicios</b></h2>
-                    <p class="text-muted">Soluciones integrales para mantener tu auto en perfecto estado.</p>
+                    </div>
                 </div>
             </div>
 
-            <div class="row align-items-center py-5" data-aos="fade-right">       
-                <div class="col-md-6">
-                    <img src="assets/images/home/service-repair.jpg" class="img-fluid w-100 object-fit-cover rounded-4" alt="Servicio de reparacion de vehiculos" >
+            <section id="servicios" class="servicios-seccion">
+                <div class="row">
+                    <div class="col-12 pt-5 pb-4 text-center">
+                        <h2 class="display-5"><b>Nuestros Servicios</b></h2>
+                        <p class="text-muted">Soluciones integrales para mantener tu auto en perfecto estado.</p>
+                    </div>
                 </div>
-                <div class="col-md-6 ps-md-5 text-start">
-                    <h2><b>Diagnóstico y Reparación Mecánica</b></h2>
-                    <p class="py-3 text-secondary">Solucionamos fallas de motor, transmisión, suspensión y frenos utilizando herramientas de escaneo computarizado de última generación. Recupera la potencia y confiabilidad de tu vehículo con refacciones de calidad certificada.</p>        
-                    <a class="icon-link icon-link-hover" href="#">Conocer más
-                        <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
-                            <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                        </svg>
-                    </a>                    
-                </div>    
-            </div>
 
-            <div class="row align-items-center py-5" data-aos="fade-left">       
-                <div class="col-md-6 ps-md-5 text-start">
-                    <h2><b>Mantenimiento Preventivo</b></h2>
-                    <p class="py-3 text-secondary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet non saepe esse soluta animi, itaque odio laboriosam tenetur nisi! Ipsa autem, explicabo quae optio voluptatem illo nostrum sequi doloribus consectetur!</p>        
-                    <a class="icon-link icon-link-hover" href="#">Conocer más
-                        <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
-                            <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                        </svg>
-                    </a>               
-                </div>    
-                <div class="col-md-6">
-                    <img src="assets/images/home/service-maintenance.jpg" class="img-fluid w-100 object-fit-cover rounded-4" alt="Servicio de reparacion de vehiculos" >
+                <div id="servicios-publicos" class="row g-4 pb-5 mb-5">
+                    <div class="col-12 text-center text-secondary" role="status">
+                        <div class="spinner-border spinner-border-sm me-2" aria-hidden="true"></div>
+                        Cargando servicios...
+                    </div>
                 </div>
-            </div>
-
-            <div class="row align-items-center py-5 mb-5" data-aos="fade-right">        
-                <div class="col-md-6">
-                    <img src="assets/images/home/service-car-wash.jpg" class="img-fluid w-100 object-fit-cover rounded-4" alt="Servicio de reparacion de vehiculos" >
-                </div>
-                <div class="col-md-6 ps-md-5 text-start">
-                    <h2><b>Lavado y Detallado</b></h2>
-                    <p class="py-3">
-                        Tratamiento estético interior y exterior con productos de grado profesional. Incluye desmanchado profundo de tapicería, descontaminado de pintura, pulido y encerado cerámico para proteger el brillo de la carrocería.                  
-                    </p>        
-                    <a class="icon-link icon-link-hover" href="#">Conocer más
-                         <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
-                            <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                        </svg>
-                    </a>               
-                </div>    
-            </div>
+            </section>
         </div>
     </main>
 
@@ -175,9 +138,9 @@
                 <div class="col-12 col-lg-3">
                     <h6 class="fw-bold mb-3">Nosotros</h6>
                     <ul class="list-unstyled small d-flex flex-column gap-2">
-                        <li><a href="mission.html" class="text-decoration-none text-secondary">Misión</a></li>
-                        <li><a href="vision.html" class="text-decoration-none text-secondary">Visión</a></li>
-                        <li><a href="values.html" class="text-decoration-none text-secondary">Valores</a></li>
+                        <li><a href="pages/mission.html" class="text-decoration-none text-secondary">Misión</a></li>
+                        <li><a href="pages/vision.html" class="text-decoration-none text-secondary">Visión</a></li>
+                        <li><a href="pages/values.html" class="text-decoration-none text-secondary">Valores</a></li>
                     </ul>
                 </div>
 
@@ -207,6 +170,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/js/servicios.js"></script>
 </body>
-<script>AOS.init();</script>
 </html>

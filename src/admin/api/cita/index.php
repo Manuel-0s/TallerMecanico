@@ -16,6 +16,10 @@ $colores = [
 
 switch ($accion) {
     case 'POST':
+        $data = $_POST['data'];
+        $datos['afectados'] = $app->update($id, $data); 
+        $datos = ['mensaje' => 'servicio actualizado correctamente'];
+        $datos['registro'] = $app->getOne($id);
         break;
     case 'DELETE':
         break;

@@ -30,30 +30,31 @@
 
                     <hr class="mx-4 my-0 opacity-25">
 
+                    <?php $paginaActual = basename($_SERVER['PHP_SELF']); ?>
                     <div class="p-3">
                         <ul class="nav flex-column nav-pills">
                             <li class="nav-item mb-2">
-                                <a href="index.php" class="nav-link text-black" aria-current="page">
+                                <a href="index.php" class="nav-link <?= $paginaActual === 'index.php' ? 'active text-white' : 'text-black' ?>" <?= $paginaActual === 'index.php' ? 'aria-current="page"' : '' ?>>
                                     <i class="fa-solid fa-house"></i> Inicio
                                 </a>
                             </li>
                             <li class="nav-item mb-2">
-                                <a href="cita.php" class="nav-link text-black">
+                                <a href="cita.php" class="nav-link <?= $paginaActual === 'cita.php' ? 'active text-white' : 'text-black' ?>" <?= $paginaActual === 'cita.php' ? 'aria-current="page"' : '' ?>>
                                     <i class="fa-solid fa-calendar"></i> Citas
                                 </a>
                             </li>
                             <li class="nav-item mb-2">
-                                <a href="cliente.php" class="nav-link text-black">
+                                <a href="cliente.php" class="nav-link <?= $paginaActual === 'cliente.php' ? 'active text-white' : 'text-black' ?>" <?= $paginaActual === 'cliente.php' ? 'aria-current="page"' : '' ?>>
                                     <i class="fa-solid fa-user-group"></i> Clientes
                                 </a>
                             </li>
                             <li class="nav-item mb-2">
-                                <a href="vehiculo.php" class="nav-link text-black">
+                                <a href="vehiculo.php" class="nav-link <?= $paginaActual === 'vehiculo.php' ? 'active text-white' : 'text-black' ?>" <?= $paginaActual === 'vehiculo.php' ? 'aria-current="page"' : '' ?>>
                                     <i class="fa-solid fa-car"></i> Vehículos
                                 </a>
                             </li>
                             <li class="nav-item mb-2">
-                                <a href="servicio.php" class="nav-link text-black">
+                                <a href="servicio.php" class="nav-link <?= $paginaActual === 'servicio.php' ? 'active text-white' : 'text-black' ?>" <?= $paginaActual === 'servicio.php' ? 'aria-current="page"' : '' ?>>
                                     <i class="fa-solid fa-wrench"></i> Servicios
                                 </a>
                             </li>
@@ -63,17 +64,17 @@
                         <p class="text-uppercase text-secondary fw-bold small px-3 mt-4 mb-2">Administración</p>
                         <ul class="nav flex-column nav-pills">
                             <li class="nav-item mb-2">
-                                <a href="empleado.php" class="nav-link text-black">
+                                <a href="empleado.php" class="nav-link <?= $paginaActual === 'empleado.php' ? 'active text-white' : 'text-black' ?>" <?= $paginaActual === 'empleado.php' ? 'aria-current="page"' : '' ?>>
                                     <i class="fa-solid fa-user"></i> Empleados
                                 </a>
                             </li>
                             <li class="nav-item mb-2">
-                                <a href="rol.php" class="nav-link text-black">
+                                <a href="rol.php" class="nav-link <?= $paginaActual === 'rol.php' ? 'active text-white' : 'text-black' ?>" <?= $paginaActual === 'rol.php' ? 'aria-current="page"' : '' ?>>
                                     <i class="fa-solid fa-address-card"></i> Roles
                                 </a>
                             </li>
                             <li class="nav-item mb-2">
-                                <a href="permiso.php" class="nav-link text-black">
+                                <a href="permiso.php" class="nav-link <?= $paginaActual === 'permiso.php' ? 'active text-white' : 'text-black' ?>" <?= $paginaActual === 'permiso.php' ? 'aria-current="page"' : '' ?>>
                                     <i class="fa-solid fa-key"></i> Permisos
                                 </a>
                             </li>

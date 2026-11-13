@@ -11,32 +11,46 @@ $datos = [];
 
 switch ($accion) {
     case 'POST':
+        $data = $_POST['data'];
+
         if (isset($id) && is_numeric($id)) {
-            $data = $_POST['data'];
-            $datos['afectados'] = $app->update($id, $data);
-            $datos = ['mensaje' => 'producto actualizada correctamente'];
-            $datos['registro'] = $app->getOne($id);
-        } else {
-            $data = $_POST['data'];
             $data['imagen'] = $uploader->cargarArchivo(
                 'imagen',
-                __DIR__ . '/../assets/images/uploads'
+                __DIR__ . '/../../../assets/images/uploads'
             );
-            $datos['afectados'] = $app->create($data);
-            $datos = ['mensaje' => 'producto creada correctamente'];
+
+            $datos = [
+                'mensaje' => 'servicio actualizado correctamente',
+                'afectados' => $app->update($id, $data),
+                'registro' => $app->getOne($id)
+            ];
+        } else {
+            $data['imagen'] = $uploader->cargarArchivo(
+                'imagen',
+                __DIR__ . '/../../../assets/images/uploads'
+            );
+
+            $datos = [
+                'registro' => $app->create($data),
+                'mensaje' => 'servicio creado correctamente'
+            ];
         }
         break;
     case 'DELETE':
         if (isset($id) && is_numeric($id)) {
-            $datos['afectados'] = $app->delete($id);
-            $datos = ['mensaje' => 'producto eliminada correctamente'];
+            $datos = [
+                'afectados' => $app->delete($id),
+                'mensaje' => 'servicio eliminado correctamente'
+            ];
         } else {
-            $datos = ['mensaje' => 'No se pudo eliminar el producto'];
+            $datos = ['mensaje' => 'No se pudo eliminar el servicio'];
         }
         break;
     case 'GET':    
     default:
-        $datos = (isset($id) && is_numeric($id)) ? $app->getOne($id) : $app->getAll();
+        $datos = (isset($id) && is_numeric($id)) 
+            ? $app->getOne($id) 
+            : $app->getAll();
         break;
 }
 echo json_encode($datos, JSON_UNESCAPED_UNICODE);

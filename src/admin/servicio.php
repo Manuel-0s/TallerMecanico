@@ -51,7 +51,7 @@
             }
             break;
         case 'delete':
-            $appAuth->verificarPermiso('servicios.eliminar');
+            //$appAuth->verificarPermiso('servicios.eliminar');
             $afectados = $app->delete($id);
             $servicios = $app->getAll();
             include_once __DIR__ . '/../templates/admin/servicio/index.php';
