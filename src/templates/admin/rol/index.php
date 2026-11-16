@@ -15,31 +15,33 @@
     </div>
         
     <section class="card shadow-sm border-0">
-        <div class="table-responsive">
-            <table class="table table-hover mb-0 align-middle">
-                <thead class="table-light">
+        <div class="table-responsive mx-3 my-3">
+            <table class="table table-hover mb-0 align-middle js-datatable">
+                <thead>
                     <tr>
-                        <th scope="col" class="ps-4">Rol</th>
+                        <th scope="col" class="ps-4 con-filtro">Rol</th>
                         <th scope="col">Descripción</th>
-                        <th scope="col" class="text-end pe-4" style="width: 10%">Acciones</th>
+                        <th scope="col" class="no-orden text-end pe-4">Acciones</th>
                     </tr>
                 </thead>
-                <tbody class="table-group-divider">
+                <tbody>
                     <?php foreach ($roles as $rol): ?>
                     <tr>
                         <td class="ps-4"><?php echo $rol['rol']; ?></td>
                         <td><?php echo $rol['descripcion']; ?></td>
-                        <td class="text-end pe-4">
-                            <div class="btn-group btn-group-sm" role="group" aria-label="Acciones de cliente">
+                        <td class="text-end pe-4 no-orden">
+                            <div class="d-inline-flex gap-1" role="group" aria-label="Acciones de rol">
                                 <a href="rol.php?accion=update&id=<?= $rol['id_rol']; ?>" 
-                                class="btn btn-outline-primary" 
+                                class="btn btn-outline-primary btn-sm" 
                                 title="Editar rol">
                                     <i class="fa-solid fa-pen-to-square"></i> 
                                 </a>
                                 <a href="rol.php?accion=delete&id=<?= $rol['id_rol']; ?>" 
-                                class="btn btn-outline-danger" 
+                                class="btn btn-outline-danger btn-sm js-confirmar" 
                                 title="Eliminar rol"
-                                onclick="return confirm('¿Estás seguro de que deseas eliminar a este cliente?');">
+                                data-titulo="¿Eliminar este rol?"
+                                data-mensaje="Esta acción no se puede deshacer. Se eliminará toda la información asociada a este rol."
+                                data-icono="error">
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
                             </div>
@@ -48,7 +50,7 @@
                     <?php endforeach; ?>
                     <?php if (empty($roles)): ?>
                         <tr>
-                            <td colspan="4" class="text-center text-muted py-5">
+                            <td colspan="3" class="text-center text-muted py-5">
                                 <i class="fa-solid fa-user-shield fa-2x mb-2 d-block"></i>
                                 No hay roles registrados.
                             </td>

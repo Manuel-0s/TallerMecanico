@@ -144,6 +144,7 @@ Class Cita extends genericCRUD{
                     ct.id_cita,
                     ct.estatus,
                     ct.fecha,
+                    ct.observaciones,
                     c.*,
                     v.*
                 FROM cita ct
