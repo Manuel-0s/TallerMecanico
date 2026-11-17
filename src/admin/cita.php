@@ -4,6 +4,7 @@
     require_once __DIR__ . '/models/vehiculo/vehiculo.class.php';
     require_once __DIR__ . '/models/auth/auth.class.php';
     require_once __DIR__ . '/models/servicio/servicios.class.php';
+    require_once __DIR__ . '/services/cita.service.php';
     require_once __DIR__ . '/../helpers/pdf.php';
 
     $appAuth = new Auth();
@@ -12,6 +13,7 @@
     $app = new Cita();
     $appVehiculo = new Vehiculo();
     $appServicio = new Servicio();
+    $citaService = new CitaService($app);
     $accion = $_GET['accion'] ?? 'read';
     $id = $_GET['id'] ?? null;
 
@@ -36,13 +38,19 @@
     switch ($accion) {
         case 'create':
             if(isset($_POST['enviar'])) {
-                $data = $_POST['data'];
-                if ($_POST["tipo_registro"] === "nuevo") {
-                    $app -> createNew($data);
-                } else {
-                    $app -> createExist($data);
-                }   
-                include_once __DIR__ . '/../templates/admin/cita/index.php';
+                try {
+                    $citaService->agendar($_POST['data'], $_POST['tipo_registro']);
+                    $alerta = ['mensaje' => 'Cita registrada correctamente.', 'tipo' => 'success'];
+                    $citas  = $app->getAll();
+                    include_once __DIR__ . '/../templates/admin/cita/index.php';
+                } catch (ReglaException $e) {
+                    $alerta = ['mensaje' => $e->getMessage(), 'tipo' => 'error'];
+                    $datos  = $_POST['data'];
+                    $datos['accion'] = 'create';
+                    $servicios = $appServicio->getAll();
+                    $vehiculos = $appVehiculo->getAll();
+                    include_once __DIR__ . '/../templates/admin/cita/_form.php';
+                }
             } else {
                 $servicios = $appServicio->getAll();
                 $vehiculos = $appVehiculo->getAll();
@@ -54,7 +62,7 @@
             if (isset($_POST['enviar'])) {
                 $data = $_POST['data'];    
                 $datos = $app->update($id, $data);
-                $citas = $app->getAll();
+                            $citas = $app->getAll();
                 include_once __DIR__ . '/../templates/admin/cita/index.php';
             } else {
                 $datos = $app -> getOne($id);
