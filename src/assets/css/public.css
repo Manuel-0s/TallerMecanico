@@ -227,3 +227,108 @@ body {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+/* ---------- Home: carrusel de servicios ---------- */
+.servicios-carousel {
+    padding: 0 0 3.5rem;
+}
+
+.servicios-carousel .carousel-inner {
+    padding: 0.75rem 0.25rem 1.5rem;
+}
+
+.servicios-carousel .carousel-indicators {
+    bottom: 0;
+    margin-bottom: 0;
+}
+
+.servicios-carousel .carousel-indicators [data-bs-target] {
+    width: 0.65rem;
+    height: 0.65rem;
+    border: 0;
+    border-radius: 50%;
+    background-color: var(--brand);
+    opacity: 0.25;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.servicios-carousel .carousel-indicators .active {
+    opacity: 1;
+    transform: scale(1.25);
+}
+
+.servicios-carousel .carousel-control-prev,
+.servicios-carousel .carousel-control-next {
+    top: 40%;
+    bottom: auto;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: var(--brand);
+    opacity: 1;
+    box-shadow: 0 0.5rem 1rem rgba(13, 110, 253, 0.3);
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.servicios-carousel .carousel-control-prev:hover,
+.servicios-carousel .carousel-control-next:hover {
+    background-color: var(--brand-dark);
+    transform: scale(1.06);
+}
+
+.servicios-carousel .carousel-control-prev { left: -1.5rem; }
+.servicios-carousel .carousel-control-next { right: -1.5rem; }
+
+.servicios-carousel .carousel-control-prev-icon,
+.servicios-carousel .carousel-control-next-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+}
+
+@media (max-width: 991.98px) {
+    .servicios-carousel .carousel-control-prev { left: 0; }
+    .servicios-carousel .carousel-control-next { right: 0; }
+    .servicios-carousel .carousel-control-prev,
+    .servicios-carousel .carousel-control-next {
+        top: auto;
+        bottom: -0.25rem;
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+}
+
+.service-card-price {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.2);
+}
+
+.service-card-img {
+    position: relative;
+    background: #f8fafc;
+}
+
+.service-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.service-card-img.is-contain img {
+    object-fit: contain;
+    padding: 1rem;
+}
+
+.service-card .card-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ---------- Home: hero ---------- */
+.hero-badge {
+    background-color: rgba(13, 110, 253, 0.1);
+    color: var(--brand);
+}

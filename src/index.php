@@ -1,175 +1,221 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taller Mecánico</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/servicios.css">
-</head>
-<body>
-    <header class="bg-light py-3">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container">
-                <a class="navbar-brand" href="#">
-                    <img src="assets/images/logos/logo.png" alt="Logo del Taller Mecánico" height="40">
-                </a>
+<?php
+require_once __DIR__ . '/admin/models/servicio/servicios.class.php';
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido" aria-controls="navbarContenido" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+$servicios = [];
+try {
+    $servicios = (new Servicio())->getAll();
+} catch (Throwable $e) {
+    $servicios = [];
+}
 
-                <div class="collapse navbar-collapse" id="navbarContenido">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Inicio</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Servicios
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="pages/service-repair.html">Reparación</a></li>
-                                <li><a class="dropdown-item" href="#">Mantenimiento</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Lavado</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Nosotros
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="pages/mission.html">Misión</a></li>
-                                <li><a class="dropdown-item" href="pages/vision.html">Visión</a></li>
-                                <li><a class="dropdown-item" href="pages/values.html">Valores</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages/contact.html">Contacto</a>
-                        </li>
-                    </ul>
+$slides = array_chunk($servicios, 3);
+
+$titulo = 'Inicio';
+$paginaActual = 'inicio';
+
+$e = fn($v) => htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8');
+
+include __DIR__ . '/templates/public/header.php';
+?>
+
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6" data-aos="fade-right">
+                <span class="badge hero-badge rounded-pill px-3 py-2 mb-3">
+                    <i class="fa-solid fa-wrench me-1"></i> Taller automotriz en Celaya
+                </span>
+                <h1 class="display-4 fw-bold mb-3">
+                    Tu auto en las mejores manos, <span class="text-gradient">sin sorpresas</span>
+                </h1>
+                <p class="lead text-secondary mb-4">
+                    Reparación, mantenimiento y lavado con diagnósticos honestos,
+                    presupuestos claros y refacciones garantizadas.
+                </p>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="/pages/appointment.php" class="btn btn-primary btn-lg rounded-pill px-4">
+                        <i class="fa-regular fa-calendar-check me-2"></i>Agendar cita
+                    </a>
+                    <a href="#servicios" class="btn btn-outline-primary btn-lg rounded-pill px-4">
+                        Ver servicios <i class="fa-solid fa-arrow-down ms-2"></i>
+                    </a>
                 </div>
             </div>
-        </nav>
-    </header>
 
-    <main>
-        <div class="container text-center">
-            <div class="row align-items-center">
-                <div class="col-12 col-lg-7">
-                    <section class="text-start">
-                        <h1 class="display-3"><b>Bienvenido a nuestro Taller Mecánico</b></h1>
-                        <p class="lead py-3">Ofrecemos servicios de reparación y mantenimiento de vehículos.</p>
-                        <a href="pages/appointment.html" class="btn btn-outline-primary btn-lg">Agendar Cita</a>
-                    </section>
-                </div>
-                <div class="col-12 col-lg-5">
-                    <div class="container text-center py-4">
-                        <div class="row g-3 g-lg-5">
-                            <div class="col p-3 rounded-4 text-center d-flex flex-column align-items-center card-stat">
-                                <div class="mb-3">
-                                    <i class="fa-solid fa-star fa-2xl" style="color: rgb(255, 212, 59);"></i>
-                                </div>
-                                <h3 class="fw-bold mb-2">+5</h3>
-                                <span class="badge text-primary border px-2 py-2 rounded-pill">
-                                    Años de Experiencia
-                                </span>
-                            </div>
-
-                            <div class="col p-3 rounded-4 text-center d-flex flex-column align-items-center card-stat">
-                                <div class="mb-3">
-                                    <i class="fa-solid fa-file-invoice-dollar fa-2xl text-success"></i>
-                                </div>
-                                <h3 class="fw-bold mb-2">100%</h3>
-                                <span class="badge text-primary border px-2 py-2 rounded-pill">
-                                    Sin Costos Ocultos
-                                </span>
-                            </div>
-
-                            <div class="col p-3 rounded-4 text-center d-flex flex-column align-items-center card-stat">
-                                <div class="mb-3">
-                                    <i class="fa-solid fa-scale-balanced fa-2xl text-primary"></i>
-                                </div>
-                                <h3 class="fw-bold mb-2">$0</h3>
-                                <span class="badge text-primary border px-2 py-2 rounded-pill">
-                                    Presupuestos claros
-                                </span>
-                            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="hero-visual">
+                    <img src="/assets/images/public/home/service-repair.jpg"
+                         alt="Mecánico revisando un vehículo"
+                         class="img-fluid w-100 rounded-4 shadow-lg object-fit-cover">
+                    <div class="hero-float bg-white shadow p-3 d-flex align-items-center gap-3">
+                        <span class="icon-circle icon-circle-sm bg-success-subtle text-success">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </span>
+                        <div class="lh-sm">
+                            <strong class="d-block">Garantía por escrito</strong>
+                            <small class="text-secondary">En cada reparación</small>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <section id="servicios" class="servicios-seccion">
-                <div class="row">
-                    <div class="col-12 pt-5 pb-4 text-center">
-                        <h2 class="display-5"><b>Nuestros Servicios</b></h2>
-                        <p class="text-muted">Soluciones integrales para mantener tu auto en perfecto estado.</p>
-                    </div>
-                </div>
-
-                <div id="servicios-publicos" class="row g-4 pb-5 mb-5">
-                    <div class="col-12 text-center text-secondary" role="status">
-                        <div class="spinner-border spinner-border-sm me-2" aria-hidden="true"></div>
-                        Cargando servicios...
-                    </div>
-                </div>
-            </section>
         </div>
-    </main>
+    </div>
+</section>
 
-    <footer class="bg-light py-5 border-top mt-auto text-center">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col col-lg-4 d-flex flex-column align-items-center">
-                    <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
-                        <i class="fa-solid fa-wrench text-primary fs-4"></i>
-                        <h5 class="fw-bold mb-0">Taller Mecánico</h5>
+<section class="stats-strip">
+    <div class="container">
+        <div class="row g-3 g-lg-4">
+            <div class="col-12 col-md-4" data-aos="fade-up">
+                <div class="card card-stat border-0 shadow h-100 text-center p-4">
+                    <div class="mx-auto mb-3 icon-circle bg-warning-subtle text-warning">
+                        <i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="text-secondary small">
-                        Mantenimiento automotriz preventivo y correctivo con refacciones garantizadas.
-                    </p>
-                </div>
-
-                <div class="col-12 col-lg-3">
-                    <h6 class="fw-bold mb-3">Nosotros</h6>
-                    <ul class="list-unstyled small d-flex flex-column gap-2">
-                        <li><a href="pages/mission.html" class="text-decoration-none text-secondary">Misión</a></li>
-                        <li><a href="pages/vision.html" class="text-decoration-none text-secondary">Visión</a></li>
-                        <li><a href="pages/values.html" class="text-decoration-none text-secondary">Valores</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-12 col-md-6 col-lg-4">
-                    <h6 class="fw-bold mb-3">Contacto</h6>
-                    <ul class="list-unstyled small d-flex flex-column gap-2 text-secondary">
-                        <li><i class="fa-solid fa-phone me-2 text-primary"></i> +52 123 456 7890</li>
-                        <li><i class="fa-solid fa-envelope me-2 text-primary"></i> contacto@tallerMecanico.com</li>
-                        <li><i class="fa-solid fa-location-dot me-2 text-primary"></i> Av. Mecánicos 123</li>
-                    </ul>
+                    <h3 class="fw-bold mb-1">+5</h3>
+                    <span class="text-secondary">Años de experiencia</span>
                 </div>
             </div>
-
-            <hr class="text-secondary">
-
-            <div class="row py-4">
-                <div class="col text-md-start">
-                    <small class="text-secondary">&copy; 2026 Taller Mecánico. Todos los derechos reservados.</small>
+            <div class="col-12 col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card card-stat border-0 shadow h-100 text-center p-4">
+                    <div class="mx-auto mb-3 icon-circle bg-success-subtle text-success">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                    </div>
+                    <h3 class="fw-bold mb-1">100%</h3>
+                    <span class="text-secondary">Sin costos ocultos</span>
                 </div>
-                <div class="col text-md-end">
-                    <span class="text-muted small me-3">Celaya, Guanajuato</span>
-                    <a href="pages/privacy.html" class="small">Política de Privacidad</a>
+            </div>
+            <div class="col-12 col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card card-stat border-0 shadow h-100 text-center p-4">
+                    <div class="mx-auto mb-3 icon-circle bg-primary-subtle text-primary">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <h3 class="fw-bold mb-1">$0</h3>
+                    <span class="text-secondary">Presupuestos claros</span>
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
+</section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="assets/js/servicios.js"></script>
-</body>
-</html>
+<section id="servicios" class="section">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-6 fw-bold">Nuestros servicios</h2>
+            <p class="text-secondary mb-0">Soluciones integrales para mantener tu auto en perfecto estado.</p>
+        </div>
+
+        <?php if (empty($slides)): ?>
+            <div class="text-center text-secondary py-5">
+                <i class="fa-solid fa-screwdriver-wrench fa-2x mb-3 d-block"></i>
+                Pronto publicaremos nuestro catálogo de servicios.
+            </div>
+        <?php else: ?>
+            <div id="carouselServicios" class="carousel slide servicios-carousel position-relative"
+                 data-bs-ride="carousel" data-bs-interval="6000" data-bs-pause="hover">
+
+                <?php if (count($slides) > 1): ?>
+                    <div class="carousel-indicators">
+                        <?php foreach ($slides as $i => $_): ?>
+                            <button type="button" data-bs-target="#carouselServicios"
+                                    data-bs-slide-to="<?= $i ?>"
+                                    class="<?= $i === 0 ? 'active' : '' ?>"
+                                    <?= $i === 0 ? 'aria-current="true"' : '' ?>
+                                    aria-label="Grupo de servicios <?= $i + 1 ?>"></button>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+
+                <div class="carousel-inner">
+                    <?php foreach ($slides as $i => $grupo): ?>
+                        <div class="carousel-item <?= $i === 0 ? 'active' : '' ?>">
+                            <div class="row g-4 justify-content-center">
+                                <?php foreach ($grupo as $servicio): ?>
+                                    <div class="col-12 col-md-6 col-lg-4">
+                                        <article class="card service-card h-100 border-0 shadow-sm overflow-hidden">
+                                            <div class="service-card-img">
+                                                <?php if (!empty($servicio['imagen'])): ?>
+                                                    <img src="/assets/images/uploads/<?= $e($servicio['imagen']) ?>"
+                                                         alt="<?= $e($servicio['servicio']) ?>" loading="lazy">
+                                                <?php else: ?>
+                                                    <div class="h-100 d-flex align-items-center justify-content-center text-primary">
+                                                        <i class="fa-solid fa-car-wrench fa-3x"></i>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <span class="badge text-bg-primary rounded-pill fs-6 service-card-price">
+                                                    $<?= number_format((float) $servicio['precio_base'], 2) ?>
+                                                </span>
+                                            </div>
+                                            <div class="card-body p-4 d-flex flex-column">
+                                                <h3 class="h5 fw-bold"><?= $e($servicio['servicio']) ?></h3>
+                                                <p class="card-text text-secondary small flex-grow-1">
+                                                    <?= $e($servicio['descripcion']) ?>
+                                                </p>
+                                                <a href="/pages/appointment.php" class="btn btn-outline-primary rounded-pill mt-2">
+                                                    Agendar <i class="fa-solid fa-arrow-right ms-1"></i>
+                                                </a>
+                                            </div>
+                                        </article>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+
+                <?php if (count($slides) > 1): ?>
+                    <button class="carousel-control-prev" type="button"
+                            data-bs-target="#carouselServicios" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button"
+                            data-bs-target="#carouselServicios" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Siguiente</span>
+                    </button>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+    </div>
+</section>
+
+<!-- ============ CÓMO TRABAJAMOS ============ -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-6 fw-bold">Así de fácil</h2>
+            <p class="text-secondary mb-0">Tres pasos para dejar tu auto como nuevo.</p>
+        </div>
+
+        <div class="row g-4 text-center">
+            <div class="col-md-4" data-aos="fade-up">
+                <div class="step-number mx-auto mb-3">1</div>
+                <h3 class="h5 fw-bold">Agenda tu cita</h3>
+                <p class="text-secondary small mb-0">Elige fecha, vehículo y los servicios que necesitas.</p>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="step-number mx-auto mb-3">2</div>
+                <h3 class="h5 fw-bold">Diagnóstico y presupuesto</h3>
+                <p class="text-secondary small mb-0">Te explicamos todo y no hacemos nada sin tu autorización.</p>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="step-number mx-auto mb-3">3</div>
+                <h3 class="h5 fw-bold">Recoge tu auto</h3>
+                <p class="text-secondary small mb-0">Entrega puntual, con garantía y refacciones certificadas.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="cta-banner rounded-5 text-white text-center p-5" data-aos="zoom-in">
+            <h2 class="display-6 fw-bold mb-3">¿Listo para darle un respiro a tu auto?</h2>
+            <p class="lead mb-4 opacity-75">Agenda hoy y recibe un diagnóstico claro, sin compromiso.</p>
+            <a href="/pages/appointment.php" class="btn btn-light btn-lg rounded-pill px-5 text-primary fw-semibold">
+                <i class="fa-regular fa-calendar-check me-2"></i>Agendar cita
+            </a>
+        </div>
+    </div>
+</section>
+
+<?php include __DIR__ . '/templates/public/footer.php'; ?>
