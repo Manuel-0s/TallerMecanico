@@ -1,5 +1,5 @@
 <?php
-function plantillaRecuperacion(string $enlace, string $sistema = 'Taller Mecánico', int $minutos = 30): string {
+function plantillaRecuperacion(string $enlace, string $sistema = 'Taller Mecánico'): string {
     $enlace  = htmlspecialchars($enlace, ENT_QUOTES, 'UTF-8');
     $sistema = htmlspecialchars($sistema, ENT_QUOTES, 'UTF-8');
     $anio    = date('Y');
@@ -38,7 +38,7 @@ function plantillaRecuperacion(string $enlace, string $sistema = 'Taller Mecáni
                     </tr>
 
                     <tr>
-                        <td align="center" style="padding:28px 32px;">
+                        <td align="center" style="padding:28px 32px 0 32px;">
                             <a href="{$enlace}" style="display:inline-block; background-color:#111111; color:#ffffff; text-decoration:none; font-size:15px; font-weight:bold; padding:14px 32px; border-radius:8px;">
                                 Restablecer contraseña
                             </a>
@@ -46,13 +46,7 @@ function plantillaRecuperacion(string $enlace, string $sistema = 'Taller Mecáni
                     </tr>
 
                     <tr>
-                        <td style="padding:0 32px; text-align:center; font-size:13px; line-height:20px; color:#71717a;">
-                            Este enlace caduca en {$minutos} minutos y solo puede usarse una vez.
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td style="padding:24px 32px 0 32px;">
+                        <td style="padding:28px 32px 0 32px;">
                             <hr style="border:none; border-top:1px solid #e4e4e7; margin:0;">
                         </td>
                     </tr>

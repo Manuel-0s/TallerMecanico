@@ -54,6 +54,7 @@
             if (isset($_POST['enviar'])) {
                 $data = $_POST['data'];    
                 $datos = $app->update($id, $data);
+                $citas = $app->getAll();
                 include_once __DIR__ . '/../templates/admin/cita/index.php';
             } else {
                 $datos = $app -> getOne($id);
