@@ -94,14 +94,6 @@ $estatusUI = [
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
-                            <?php if (empty($citas)): ?>
-                                <tr>
-                                    <td colspan="4" class="text-center text-muted py-5">
-                                        <i class="fa-solid fa-calendar-days fa-2x mb-2 d-block"></i>
-                                        No hay citas registradas.
-                                    </td>
-                                </tr>
-                            <?php endif; ?>
                         </tbody>
                     </table>
 

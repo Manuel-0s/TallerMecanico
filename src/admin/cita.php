@@ -66,6 +66,7 @@
             break;
         case 'delete':
             $afectados = $app->delete($id);
+            $citas = $app->getAll();
             include_once __DIR__ . '/../templates/admin/cita/index.php';
             break;
         case 'read':
