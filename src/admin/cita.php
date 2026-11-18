@@ -14,24 +14,9 @@
     $appVehiculo = new Vehiculo();
     $appServicio = new Servicio();
     $citaService = new CitaService($app);
+    
     $accion = $_GET['accion'] ?? 'read';
     $id = $_GET['id'] ?? null;
-
-    if ($accion === 'pdf') {
-        $cita = $app->getDetalle($id);
-        if (!$cita) {
-            http_response_code(404);
-            exit('Cita no encontrada.');
-        }
-        $servicios = $app->getServiciosDetalle($id);
-
-      
-        include __DIR__ . '/../templates/admin/cita/comprobante.php';
-        $html = ob_get_clean();
-
-        (new Pdf())->generar($html, 'cita-' . (int) $id . '.pdf');
-        exit;
-    }
 
     include_once __DIR__ . '/../templates/admin/sidebar.html';
 
@@ -62,7 +47,7 @@
             if (isset($_POST['enviar'])) {
                 $data = $_POST['data'];    
                 $datos = $app->update($id, $data);
-                            $citas = $app->getAll();
+                $citas = $app->getAll();
                 include_once __DIR__ . '/../templates/admin/cita/index.php';
             } else {
                 $datos = $app -> getOne($id);
