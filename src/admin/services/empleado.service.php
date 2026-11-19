@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/empleado/empleado.class.php';
-require_once __DIR__ . '/../exceptions/negocio.exceptions.php';
+require_once __DIR__ . '/../exceptions/exeptions.php';
 
 class EmpleadoService {
     public function __construct(private Empleado $empleados) {}
