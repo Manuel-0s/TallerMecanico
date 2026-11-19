@@ -75,3 +75,45 @@ function plantillaRecuperacion(string $enlace, string $sistema = 'Taller Mecáni
 </html>
 HTML;
 }
+
+function plantillaBienvenida(string $nombre, string $correo, string $contrasena, string $enlaceLogin, string $sistema = 'Taller Mecánico'): string {
+    $nombre      = htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8');
+    $correo      = htmlspecialchars($correo, ENT_QUOTES, 'UTF-8');
+    $contrasena  = htmlspecialchars($contrasena, ENT_QUOTES, 'UTF-8');
+    $enlaceLogin = htmlspecialchars($enlaceLogin, ENT_QUOTES, 'UTF-8');
+    $sistema     = htmlspecialchars($sistema, ENT_QUOTES, 'UTF-8');
+    $anio        = date('Y');
+
+    return <<<HTML
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><title>Bienvenido</title></head>
+<body style="margin:0; padding:0; background-color:#f4f4f5; font-family:Arial, sans-serif;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="padding:32px 16px;">
+        <tr>
+            <td align="center">
+                <table width="100%" cellpadding="0" cellspacing="0" style="max-width:480px; background:#ffffff; border:1px solid #e4e4e7; border-radius:12px; padding:32px;">
+                    <tr>
+                        <td style="text-align:center;">
+                            <h1 style="margin:0 0 16px; font-size:22px; color:#111111;">¡Bienvenido a {$sistema}, {$nombre}!</h1>
+                            <p style="font-size:15px; color:#52525b; line-height:22px;">
+                                Tu cuenta ha sido creada exitosamente. Aquí tienes tus credenciales de acceso:
+                            </p>
+                            <p style="background:#f4f4f5; padding:12px; border-radius:8px; font-size:14px; color:#111111;">
+                                <strong>Correo:</strong> {$correo}<br>
+                                <strong>Contraseña:</strong> {$contrasena}
+                            </p>
+                            <a href="{$enlaceLogin}" style="display:inline-block; margin-top:16px; background:#111111; color:#ffffff; text-decoration:none; font-weight:bold; padding:12px 28px; border-radius:8px;">
+                                Iniciar sesión
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                <p style="margin-top:16px; font-size:12px; color:#a1a1aa;">&copy; {$anio} {$sistema}.</p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+HTML;
+}

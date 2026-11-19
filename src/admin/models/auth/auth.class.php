@@ -132,5 +132,4 @@ Class Auth extends Sistema {
         return $afectados;
     }
 }
-
 ?>

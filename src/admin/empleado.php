@@ -27,17 +27,12 @@
                 $data['foto'] = $uploader->cargarArchivo('foto', __DIR__ . '/../assets/images/uploads');
 
                 try {
-                    $datos = $app -> create($data);
+                    $empleadoService->create($data);
                     $alerta = ['mensaje' => 'Empleado registrado correctamente.', 'tipo' => 'success'];
                     $empleados = $app->getAll();
                     require_once __DIR__ . '/../templates/empleado/index.php';
-                } catch (Exception $e) {
-                    $alerta = [
-                        'mensaje' => $e->getCode() === '23505'
-                            ? 'Ya existe un empleado con ese correo electrónico.'
-                            : 'No se pudo registrar el empleado. Intenta de nuevo.',
-                        'tipo' => 'error'
-                    ];
+                } catch (ReglaException $e) {
+                    $alerta = ['mensaje' => $e->getMessage(), 'tipo' => 'error'];
                     $datos = $data;      
                     $datos['accion'] = 'create';
                     $roles = $appRol->getAll();
@@ -84,7 +79,7 @@
             break;
         case 'delete':
             try {
-                $empleadoService->eliminar((int) $id, (int) $_SESSION['usuario']['id_empleado']);
+                $empleadoService->delete((int) $id, (int) $_SESSION['usuario']['id_empleado']);
                 $alerta = ['mensaje' => 'Registro eliminado.', 'tipo' => 'success'];
             } catch (ReglaException $e) {
                 $alerta = ['mensaje' => $e->getMessage(), 'tipo' => 'danger'];

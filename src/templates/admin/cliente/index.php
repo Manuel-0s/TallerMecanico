@@ -36,17 +36,30 @@
                         <td class="text-end pe-4 no-orden">
                             <div class="d-inline-flex gap-1" role="group" aria-label="Acciones de cliente">
                                 <a href="cliente.php?accion=update&id=<?= $cliente['id_cliente']; ?>" 
-                                class="btn btn-outline-primary btn-sm" 
-                                title="Editar cliente">
-                                    <i class="fa-solid fa-pen-to-square"></i> 
+                                    class="btn btn-outline-primary btn-sm" 
+                                    title="Editar cliente">
+                                        <i class="fa-solid fa-pen-to-square"></i> Editar
                                 </a>
+
                                 <a href="cliente.php?accion=delete&id=<?= $cliente['id_cliente']; ?>" 
-                                class="btn btn-outline-danger btn-sm js-confirmar" 
-                                title="Eliminar cliente"
-                                data-titulo="¿Eliminar este cliente?"
-                                data-mensaje="Esta acción no se puede deshacer. Se eliminará toda la información asociada a este cliente."
-                                data-icono="error">
-                                    <i class="fa-solid fa-trash"></i>
+                                    class="btn btn-outline-danger btn-sm js-confirmar" 
+                                    title="Eliminar cliente"
+                                    data-titulo="¿Eliminar este cliente?"
+                                    data-mensaje="Esta acción no se puede deshacer. Se eliminará toda la información asociada a este cliente."
+                                    data-icono="error">
+                                        <i class="fa-solid fa-trash"></i> Eliminar
+                                </a>
+
+                                <a href="cliente.php?accion=historial&id_cliente=<?= $cliente['id_cliente']; ?>" 
+                                    class="btn btn-outline-secondary btn-sm" 
+                                    title="Ver historial de servicios">
+                                        <i class="fa-solid fa-clock-rotate-left"></i> Historial
+                                </a>
+
+                                <a href="cliente.php?accion=autos&id_cliente=<?= $cliente['id_cliente']; ?>" 
+                                    class="btn btn-outline-secondary btn-sm" 
+                                    title="Ver historial de servicios">
+                                        <i class="fa-solid fa-car"></i> Autos
                                 </a>
                             </div>
                         </td>

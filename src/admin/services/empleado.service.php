@@ -1,11 +1,14 @@
 <?php
 require_once __DIR__ . '/../models/empleado/empleado.class.php';
 require_once __DIR__ . '/../exceptions/exeptions.php';
+require_once __DIR__ . '/../../helpers/mail.php';
+require_once __DIR__ . '/../../helpers/emailTemplate.php';
+require_once __DIR__ . '/../validators/empleado.validator.php';
 
 class EmpleadoService {
     public function __construct(private Empleado $empleados) {}
 
-    public function eliminar(int $id, int $idEmpleadoActual): void {
+    public function delete(int $id, int $idEmpleadoActual): void {
         $this->asegurarQueNoEsMiCuenta($id, $idEmpleadoActual, 'eliminar');
 
         try {
@@ -16,6 +19,35 @@ class EmpleadoService {
             }
             throw $e;
         }
+    }
+
+    public function create(array $data): void {
+        $appMail = new Mail();
+
+        $enlaceLogin = 'http://' . $_SERVER['HTTP_HOST'] . '/admin/login.php';
+        $html = plantillaBienvenida(
+            $data['nombre'],
+            $data['correo'],
+            $data['contrasena'],
+            $enlaceLogin
+        );
+
+        EmpleadoValidator::validar($data);
+
+        try {
+            $this->empleados->create($data);
+        } catch (PDOException $e) {
+            if ($e->getCode() === '23505') {
+                throw new ReglaException('Ya existe un empleado con ese correo electrónico.');
+            }
+            throw $e;
+        }
+
+        $appMail->enviar(
+            [$data['correo']],
+            'Bienvenido a Taller Mecánico - Datos de acceso',
+            $html
+        );
     }
 
     public function alternarActivo(int $id, int $idEmpleadoActual): void {
