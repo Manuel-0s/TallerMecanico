@@ -58,12 +58,12 @@
                                         <i class="fa-solid fa-ellipsis-vertical"></i>
                                     </button>
                                     <ul class="dropdown-menu">                                        
-                                        <a href="cliente.php?accion=autos&id_cliente=<?= $cliente['id_cliente']; ?>" 
+                                        <a href="cliente.php?accion=getCar&id=<?= $cliente['id_cliente']; ?>" 
                                             class="btn btn-outline-secondary btn-sm dropdown-item" 
-                                            title="Ver historial de servicios">
-                                                <i class="fa-solid fa-car"></i> Ver autos
+                                            title="Ver autos asociados">
+                                                <i class="fa-solid fa-car"></i> Ver autos asociados
                                         </a>
-                                        <a href="cliente.php?accion=historial&id_cliente=<?= $cliente['id_cliente']; ?>" 
+                                        <a href="cliente.php?accion=historial&id=<?= $cliente['id_cliente']; ?>" 
                                             class="btn btn-outline-secondary btn-sm dropdown-item" 
                                             title="Ver historial de servicios">
                                                 <i class="fa-solid fa-clock-rotate-left"></i> Historial de servicios

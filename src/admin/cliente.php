@@ -1,11 +1,14 @@
 <?php
     include_once __DIR__ . '/models/cliente/cliente.class.php';
     include_once __DIR__ . '/models/auth/auth.class.php';
+    require_once __DIR__ . '/services/cliente.service.php';
+    require_once __DIR__ . '/exceptions/exeptions.php';
 
     $appAuth = new Auth();
     $appAuth -> verificarRol('Empleado');
 
     $app = new Cliente();
+    $clienteService = new ClienteService($app);
     $accion = $_GET['accion'] ?? 'read';
     $id = $_GET['id'] ?? null;
 
@@ -40,6 +43,18 @@
             $afectados = $app->delete($id);
             $clientes = $app->getAll();
             include_once __DIR__ . '/../templates/admin/cliente/index.php';
+            break;
+        case 'getCar':
+            try {
+                $resultado = $clienteService->obtenerVehiculos($id);
+                $cliente = $resultado['cliente'];
+                $vehiculos = $resultado['vehiculos'];
+                include_once __DIR__ . '/../templates/admin/cliente/_autos.php';
+            } catch (ReglaException $e) {
+                $alerta = ['mensaje' => $e->getMessage(), 'tipo' => 'error'];
+                $clientes = $app->getAll();
+                include_once __DIR__ . '/../templates/admin/cliente/index.php';
+            }
             break;
         case 'read':
         default:

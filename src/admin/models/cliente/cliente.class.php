@@ -11,5 +11,13 @@ class Cliente extends GenericCRUD {
         "telefono" => PDO::PARAM_STR, 
         "correo" => PDO::PARAM_STR
         ];   
+    
+    function getCars($id_cliente) {
+        $sql = "SELECT * FROM vehiculo WHERE id_cliente = :id_cliente";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id_cliente', $id_cliente, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>
