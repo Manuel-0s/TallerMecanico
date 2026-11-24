@@ -47,7 +47,8 @@
                 </div>
                 <div class="col-md-8">
                     <label for="id_cliente" class="form-label text-secondary">Cliente <span class="text-danger">*</span></label>
-                    <select class="form-select bg-light" name="data[id_cliente]" id="id_cliente" required>
+                    <select class="form-select bg-light js-tomselect" name="data[id_cliente]" id="id_cliente"
+                            data-placeholder="Busca un cliente..." required>
                         <option value="">Selecciona un cliente</option>
                         <?php foreach ($clientes as $cliente): ?>
                             <option value="<?= htmlspecialchars($cliente['id_cliente']) ?>"

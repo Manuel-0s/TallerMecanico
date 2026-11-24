@@ -22,6 +22,8 @@ class EmpleadoService {
     }
 
     public function create(array $data): void {
+        EmpleadoValidator::validar($data);
+
         $appMail = new Mail();
 
         $enlaceLogin = 'http://' . $_SERVER['HTTP_HOST'] . '/admin/login.php';
@@ -32,22 +34,28 @@ class EmpleadoService {
             $enlaceLogin
         );
 
-        EmpleadoValidator::validar($data);
-
-        try {
-            $this->empleados->create($data);
-        } catch (PDOException $e) {
-            if ($e->getCode() === '23505') {
-                throw new ReglaException('Ya existe un empleado con ese correo electrónico.');
-            }
-            throw $e;
-        }
+        $this->persistirEmpleado(fn() => $this->empleados->create($data));
 
         $appMail->enviar(
             [$data['correo']],
             'Bienvenido a Taller Mecánico - Datos de acceso',
             $html
         );
+    }
+
+    public function update(int $id, array $data): void {
+        $id = EmpleadoValidator::validarIdEmpleado($id);
+        $empleado = $this->empleados->getOne($id);
+
+        if (!$empleado) {
+            throw new ReglaException('No se encontró el empleado seleccionado.');
+        }
+
+        $data['foto'] = $data['foto'] ?? $empleado['foto'];
+        $data['id_rol'] = $data['id_rol'] ?? [];
+        EmpleadoValidator::validar($data, true);
+
+        $this->persistirEmpleado(fn() => $this->empleados->update($id, $data));
     }
 
     public function alternarActivo(int $id, int $idEmpleadoActual): void {
@@ -58,6 +66,18 @@ class EmpleadoService {
     private function asegurarQueNoEsMiCuenta(int $id, int $idActual, string $accion): void {
         if ($id === $idActual) {
             throw new ReglaException("No puedes $accion tu propia cuenta.");
+        }
+    }
+
+    private function persistirEmpleado(callable $operacion): void {
+        try {
+            $operacion();
+        } catch (PDOException $e) {
+            if ($e->getCode() === '23505') {
+                throw new ReglaException('Ya existe un empleado con ese correo electrónico.');
+            }
+
+            throw $e;
         }
     }
 }

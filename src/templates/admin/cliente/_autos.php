@@ -29,7 +29,7 @@ $nombreCliente = trim(
 
         <?php if (!empty($vehiculos)): ?>
             <div class="table-responsive p-3">
-                <table class="table table-hover align-middle mb-0">
+                <table class="table table-hover align-middle mb-0 js-datatable">
                     <thead>
                         <tr>
                             <th scope="col" class="ps-3">Matrícula</th>

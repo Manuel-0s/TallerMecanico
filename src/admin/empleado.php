@@ -46,23 +46,18 @@
             break;
         case 'update':
             if (isset($_POST['enviar'])) {  
-                $data = $_POST['data'];
+                $data = $_POST['data'] ?? [];
                 $empleado = $app->getOne($id);
                 $foto = $uploader->cargarArchivo('foto', __DIR__ . '/../assets/images/uploads');
-                $data['foto'] = $foto ?? $empleado['foto'];
+                $data['foto'] = $foto ?? ($empleado['foto'] ?? null);
                 
                 try {
-                    $datos = $app->update($id, $data);
+                    $empleadoService->update($id, $data);
                     $alerta = ['mensaje' => 'Empleado actualizado correctamente.', 'tipo' => 'success'];
                     $empleados = $app->getAll();
                     require_once __DIR__ . '/../templates/empleado/index.php';
-                }catch (Exception $e) {
-                    $alerta = [
-                        'mensaje' => $e->getCode() === '23505'
-                            ? 'Ya existe un empleado con ese correo electrónico.'
-                            : 'No se pudo actualizar el empleado. Intenta de nuevo.',
-                        'tipo' => 'error'
-                    ];
+                } catch (ReglaException $e) {
+                    $alerta = ['mensaje' => $e->getMessage(), 'tipo' => 'error'];
                     $datos = $data;
                     $datos['accion'] = 'update';
                     $datos['roles'] = $data['id_rol'] ?? [];

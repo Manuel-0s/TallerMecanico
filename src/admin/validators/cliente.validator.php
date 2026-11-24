@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../exceptions/exeptions.php';
 
 class ClienteValidator {
-    public static function validarIdCliente($idCliente): int {
+    public static function validarIdCliente(mixed $idCliente): int {
         $idValidado = filter_var($idCliente, FILTER_VALIDATE_INT);
 
         if ($idValidado === false || $idValidado < 1) {

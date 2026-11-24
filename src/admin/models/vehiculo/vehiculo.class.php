@@ -13,8 +13,21 @@ class Vehiculo extends genericCRUD {
     ];
 
     function create($data) {
-        $data['matricula'] = strtoupper(trim($data['matricula']));
+        $data = $this->normalizarMatricula($data);
         return parent::create($data);
+    }
+
+    function update($id, $data) {
+        $data = $this->normalizarMatricula($data);
+        return parent::update($id, $data);
+    }
+
+    private function normalizarMatricula($data) {
+        if (isset($data['matricula']) && is_string($data['matricula'])) {
+            $data['matricula'] = strtoupper(trim($data['matricula']));
+        }
+
+        return $data;
     }
 
     function getAllConCliente() {

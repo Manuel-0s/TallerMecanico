@@ -17,10 +17,17 @@
     switch ($accion) {
         case 'create':
             if(isset($_POST['enviar'])) {
-                $data = $_POST['data'];
-                $datos = $app -> create($data);
-                $clientes = $app->getAll();
-                include_once __DIR__ . '/../templates/admin/cliente/index.php';
+                $data = $_POST['data'] ?? [];
+                try {
+                    $clienteService->registrarCliente($data);
+                    $clientes = $app->getAll();
+                    include_once __DIR__ . '/../templates/admin/cliente/index.php';
+                } catch (ReglaException $e) {
+                    $alerta = ['mensaje' => $e->getMessage(), 'tipo' => 'error'];
+                    $datos = $data;
+                    $datos['accion'] = 'create';
+                    include_once __DIR__ . '/../templates/admin/cliente/_form.php';
+                }
             } else {
                 $datos['accion'] = 'create';
                 include_once __DIR__ . '/../templates/admin/cliente/_form.php'; 
@@ -28,11 +35,19 @@
             break;
         case 'update':
             if (isset($_POST['enviar'])) {
-                $data = $_POST['data'];
+                $data = $_POST['data'] ?? [];
                 $id = $_POST['id'] ?? $_GET['id'] ?? null;
-                $datos = $app->update($id, $data);
-                $clientes = $app->getAll();
-                include_once __DIR__ . '/../templates/admin/cliente/index.php';
+                try {
+                    $clienteService->actualizarCliente($id, $data);
+                    $clientes = $app->getAll();
+                    include_once __DIR__ . '/../templates/admin/cliente/index.php';
+                } catch (ReglaException $e) {
+                    $alerta = ['mensaje' => $e->getMessage(), 'tipo' => 'error'];
+                    $datos = $data;
+                    $datos['id'] = $id;
+                    $datos['accion'] = 'update';
+                    include_once __DIR__ . '/../templates/admin/cliente/_form.php';
+                }
             } else {
                 $datos = $app -> getOne($id);
                 $datos['accion'] = 'update';
@@ -46,9 +61,9 @@
             break;
         case 'getCar':
             try {
-                $resultado = $clienteService->obtenerVehiculos($id);
-                $cliente = $resultado['cliente'];
-                $vehiculos = $resultado['vehiculos'];
+                $datos = $clienteService->obtenerVehiculos($id);
+                $cliente = $datos['cliente'];
+                $vehiculos = $datos['vehiculos'];
                 include_once __DIR__ . '/../templates/admin/cliente/_autos.php';
             } catch (ReglaException $e) {
                 $alerta = ['mensaje' => $e->getMessage(), 'tipo' => 'error'];
