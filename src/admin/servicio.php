@@ -1,6 +1,6 @@
 <?php 
     include_once __DIR__ . '/models/servicio/servicios.class.php';
-    include_once __DIR__ . '/../helpers/fileUploader.php';
+    require_once __DIR__ . '/../helpers/fileUploader.php';
     include_once __DIR__ . '/models/auth/auth.class.php';
 
     $appAuth = new Auth();
@@ -8,7 +8,7 @@
     $appAuth->verificarPermiso('servicio.ver');
 
     $app = new Servicio();
-    $uploader = new FileUploader();
+    $uploader = new fileUploader();
     $accion = $_GET['accion'] ?? 'read';    
     $id = $_GET['id'] ?? null;
 

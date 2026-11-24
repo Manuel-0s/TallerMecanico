@@ -6,7 +6,7 @@ class EmpleadoValidator {
         $errores = [];
         $correo = $data['correo'] ?? null;
         $contrasena = $data['contrasena'] ?? '';
-        $idRoles = $data['id_rol'] ?? [];
+        $roles = $data['roles'] ?? [];
 
         if (!is_string($correo) || !filter_var($correo, FILTER_VALIDATE_EMAIL)) {
             $errores['correo'] = 'El correo no es valido.';
@@ -17,8 +17,10 @@ class EmpleadoValidator {
             $errores['contrasena'] = 'La contraseña debe tener al menos 8 caracteres.';
         }
 
-        if ((!$esActualizacion && empty($idRoles)) || !is_array($idRoles)) {
-            $errores['id_rol'] = 'Debes seleccionar al menos un rol.';
+        if (!is_array($roles) || empty($roles)) {
+            $errores['roles'] = 'Debe seleccionar al menos un rol.';
+        } elseif (self::contieneIdRolInvalido($roles)) {
+            $errores['roles'] = 'Los roles seleccionados no son válidos.';
         }
 
         if (empty($data['nombre']) || !is_string($data['nombre'])) {
@@ -32,6 +34,8 @@ class EmpleadoValidator {
         if ($errores) {
             throw new ValidacionException($errores);
         }
+
+        
     }
 
     public static function validarIdEmpleado(mixed $idEmpleado): int {
@@ -44,5 +48,16 @@ class EmpleadoValidator {
         }
 
         return $idValidado;
+    }
+
+    private static function contieneIdRolInvalido(array $idRoles): bool {
+        foreach ($idRoles as $idRol) {
+            $idValidado = filter_var($idRol, FILTER_VALIDATE_INT);
+            if ($idValidado === false || $idValidado < 1) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -1,10 +1,10 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 require_once '../../models/servicio/servicios.class.php';
-include_once __DIR__ . '/../../../helpers/FileUploader.php';
+require_once __DIR__ . '/../../../helpers/fileUploader.php';
 
 $app = new Servicio();
-$uploader = new FileUploader();
+$uploader = new fileUploader();
 $accion = $_SERVER['REQUEST_METHOD'];
 $id = $_GET['id'] ?? null;
 $datos = [];

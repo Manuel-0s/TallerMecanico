@@ -106,24 +106,22 @@
             <hr class="text-secondary-emphasis">
  
             <h6 class="text-uppercase text-secondary fw-bold small mb-1">Roles</h6>
-            <p class="text-muted small mb-3">El rol <strong>Empleado</strong> se asigna automáticamente. Selecciona los roles adicionales.</p>
+            <p class="text-muted small mb-3">Selecciona al menos un rol para este empleado.</p>
 
             <div class="d-flex flex-wrap gap-2" aria-label="Roles del empleado">
-                <?php foreach ($roles as $rol): ?>
-                     <?php if ($rol["rol"] != "Empleado"): ?>
-                        <?php $rolId = (int) $rol['id_rol']; ?>
-                        <input
-                            type="checkbox"
-                            class="btn-check"
-                            name="data[id_rol][]"
-                            value="<?php echo $rolId; ?>"
-                            id="rol-<?php echo $rolId; ?>"
-                            <?php echo in_array($rolId, $datos['roles'] ?? [], true) ? 'checked' : ''; ?>
-                            >
-                        <label class="btn btn-sm btn-outline-primary" for="rol-<?php echo $rolId; ?>">
-                            <?php echo $rol['rol']; ?>
-                        </label>
-                    <?php endif; ?>
+                <?php foreach ($roles as $rol): ?>                  
+                    <?php $rolId = (int) $rol['id_rol']; ?>
+                    <input
+                        type="checkbox"
+                        class="btn-check"
+                        name="data[roles][]"
+                        value="<?php echo $rolId; ?>"
+                        id="rol-<?php echo $rolId; ?>"
+                        <?php echo in_array($rolId, $datos['id_roles'] ?? [], true) ? 'checked' : ''; ?>
+                        >
+                    <label class="btn btn-sm btn-outline-primary" for="rol-<?php echo $rolId; ?>">
+                        <?php echo $rol['rol']; ?>
+                    </label>
                 <?php endforeach; ?>
             </div>      
         </div>

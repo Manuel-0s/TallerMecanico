@@ -4,12 +4,10 @@
     require_once __DIR__ . '/models/usuario/usuario_rol.class.php';
     require_once __DIR__ . '/models/auth/auth.class.php';
     require_once __DIR__ . '/services/empleado.service.php';
-    require_once __DIR__ . '/../helpers/FileUploader.php';
     
     $appAuth = new Auth();
     $appAuth -> verificarRol('Administrador');
 
-    $uploader = new FileUploader();
     $app = new Empleado();
     $appRol = new Rol();
     $appUsuarioRol = new UsuarioRol();
@@ -24,8 +22,6 @@
         case 'create':
             if(isset($_POST['enviar'])) {
                 $data = $_POST['data'];
-                $data['foto'] = $uploader->cargarArchivo('foto', __DIR__ . '/../assets/images/uploads');
-
                 try {
                     $empleadoService->create($data);
                     $alerta = ['mensaje' => 'Empleado registrado correctamente.', 'tipo' => 'success'];
@@ -33,7 +29,8 @@
                     require_once __DIR__ . '/../templates/empleado/index.php';
                 } catch (ReglaException $e) {
                     $alerta = ['mensaje' => $e->getMessage(), 'tipo' => 'error'];
-                    $datos = $data;      
+                    $datos = $data;
+                    $datos['id_roles'] = $data['roles'] ?? [];
                     $datos['accion'] = 'create';
                     $roles = $appRol->getAll();
                     require_once __DIR__ . '/../templates/empleado/_form.php';
@@ -47,10 +44,7 @@
         case 'update':
             if (isset($_POST['enviar'])) {  
                 $data = $_POST['data'] ?? [];
-                $empleado = $app->getOne($id);
-                $foto = $uploader->cargarArchivo('foto', __DIR__ . '/../assets/images/uploads');
-                $data['foto'] = $foto ?? ($empleado['foto'] ?? null);
-                
+
                 try {
                     $empleadoService->update($id, $data);
                     $alerta = ['mensaje' => 'Empleado actualizado correctamente.', 'tipo' => 'success'];
@@ -59,22 +53,38 @@
                 } catch (ReglaException $e) {
                     $alerta = ['mensaje' => $e->getMessage(), 'tipo' => 'error'];
                     $datos = $data;
+                    $empleado = $app->getOne($id);
+                    $datos['foto'] = $datos['foto'] ?? ($empleado['foto'] ?? null);
+                    $datos['id'] = $id;
                     $datos['accion'] = 'update';
-                    $datos['roles'] = $data['id_rol'] ?? [];
+                    $datos['id_roles'] = $data['roles'] ?? [];
+                    echo '<pre>';
+                    print_r($datos);
+                    echo '</pre>';
                     $roles = $appRol->getAll();
                     require_once __DIR__ . '/../templates/empleado/_form.php';
                 }
             } else {
-                $datos = $app -> getOne($id);
-                $roles = $appRol->getAll();
-                $datos['roles'] = $appUsuarioRol->getRolesById($id);
-                $datos['accion'] = 'update';
-                require_once __DIR__ . '/../templates/empleado/_form.php'; 
+                try {
+                    $empleadoService->validarExistencia($id);
+                    $datos = $app->getOne($id);
+                    $roles = $appRol->getAll();
+                    $datos['id_roles'] = $appUsuarioRol->getRolesById($id);
+                    $datos['accion'] = 'update';
+                    echo '<pre>';
+                    print_r($datos);
+                    echo '</pre>';
+                    require_once __DIR__ . '/../templates/empleado/_form.php';
+                }  catch (ReglaException $e) {
+                    $alerta = ['mensaje' => $e->getMessage(), 'tipo' => 'error'];
+                    $empleados = $app->getAll();
+                    require_once __DIR__ . '/../templates/empleado/index.php';
+                }
             }
             break;
         case 'delete':
             try {
-                $empleadoService->delete((int) $id, (int) $_SESSION['usuario']['id_empleado']);
+                $empleadoService->delete($id, $_SESSION['usuario']['id_empleado']);
                 $alerta = ['mensaje' => 'Registro eliminado.', 'tipo' => 'success'];
             } catch (ReglaException $e) {
                 $alerta = ['mensaje' => $e->getMessage(), 'tipo' => 'danger'];
@@ -84,12 +94,12 @@
             break;
 
         case 'disable':
-            if ($id == $_SESSION['usuario']['id_empleado']) {
-                $alerta = ['mensaje' => 'No puedes desactivar tu propia cuenta.', 'tipo' => 'danger'];
-            } else {
-                $app->toggleActivo($id);
+            try {
+                $empleadoService->alternarActivo($id, $_SESSION['usuario']['id_empleado']);
+                $alerta = ['mensaje' => 'Estado del empleado actualizado.', 'tipo' => 'success'];
+            } catch (ReglaException $e) {
+                $alerta = ['mensaje' => $e->getMessage(), 'tipo' => 'danger'];
             }
-            
             $empleados = $app->getAll();
             include __DIR__ . '/../templates/empleado/index.php';
             break;

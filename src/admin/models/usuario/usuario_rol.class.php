@@ -16,8 +16,8 @@ Class UsuarioRol extends GenericCRUD {
         
         $stmt = $this -> db -> prepare($sql);
 
-        foreach ($data['id_rol'] as $roles){
-            $stmt -> bindparam(':id_rol', $roles, PDO::PARAM_INT);
+        foreach ($data['roles'] as $idRol){
+            $stmt -> bindparam(':id_rol', $idRol, PDO::PARAM_INT);
             $stmt -> bindparam(':id_usuario', $data['id_usuario'], PDO::PARAM_INT);
             $stmt -> execute();
         }
@@ -42,8 +42,8 @@ Class UsuarioRol extends GenericCRUD {
         $afectados = 0;
         if (is_numeric($id)){
 
-            if (!isset($data['id_rol'])) {
-                $data['id_rol'] = [];
+            if (!isset($data['roles'])) {
+                $data['roles'] = [];
             }
 
             $this -> delete($id);
@@ -51,9 +51,9 @@ Class UsuarioRol extends GenericCRUD {
             $sql = "INSERT INTO {$this->table} (id_usuario, id_rol) VALUES (:id, :id_rol)";
             $stmt = $this -> db -> prepare($sql);
 
-            foreach ($data['id_rol'] as $roles) {
+            foreach ($data['roles'] as $idRol) {
                 $stmt -> bindParam(":id", $id, PDO::PARAM_INT);
-                $stmt -> bindParam(":id_rol", $roles, PDO::PARAM_INT);
+                $stmt -> bindParam(":id_rol", $idRol, PDO::PARAM_INT);
                 $stmt -> execute();
             }
 

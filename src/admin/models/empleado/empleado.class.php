@@ -14,11 +14,7 @@ class Empleado extends GenericCRUD {
         "id_usuario" => PDO::PARAM_INT
     ];
 
-    private const ROL_EMPLEADO = 2;
-
     function create($data) {
-        $data["id_rol"][] = self::ROL_EMPLEADO;
-
         $this->db->beginTransaction();
         try {
             $sql = "INSERT INTO usuario (correo, contrasena) VALUES (:correo, :contrasena)";
@@ -29,7 +25,7 @@ class Empleado extends GenericCRUD {
 
             $data['id_usuario'] = $this->db->lastInsertId();
 
-            foreach ($data["id_rol"] as $idRol) {
+            foreach ($data["roles"] as $idRol) {
                 $sql = "INSERT INTO usuario_rol (id_usuario, id_rol) VALUES (:id_usuario, :id_rol)";
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindValue(':id_usuario', $data['id_usuario'], PDO::PARAM_INT);
@@ -77,8 +73,6 @@ class Empleado extends GenericCRUD {
     }
 
     function update($id, $data) {
-        $data["id_rol"][] = self::ROL_EMPLEADO;
-        
         $this->db->beginTransaction();
         try {
             $empleado = $this->getOne($id);
@@ -105,14 +99,14 @@ class Empleado extends GenericCRUD {
             $stmt->bindParam(':id_usuario', $empleado['id_usuario'], PDO::PARAM_INT);
             $stmt->execute();
     
-            if (isset($data['id_rol'])) {
+            if (isset($data['roles'])) {
                 $sql = "DELETE FROM usuario_rol 
                         WHERE id_usuario = :id_usuario";
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':id_usuario', $empleado['id_usuario'], PDO::PARAM_INT);
                 $stmt->execute();
 
-                foreach ($data['id_rol'] as $idRol) {
+                foreach ($data['roles'] as $idRol) {
                     $sql = "INSERT INTO usuario_rol (id_usuario, id_rol) 
                             VALUES (:id_usuario, :id_rol)";
                     $stmt = $this->db->prepare($sql);
@@ -157,6 +151,15 @@ class Empleado extends GenericCRUD {
         $empleado = $this->getOne($id);
         $usuario = new Usuario();
         $usuario->toggleActivo($empleado['id_usuario']);
+    }
+
+    function existeEmpleado ($id) {
+        $sql = "SELECT COUNT(*) FROM empleado
+            WHERE id_empleado = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
     }
 }
 ?>

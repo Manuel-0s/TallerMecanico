@@ -3,18 +3,30 @@ require_once __DIR__ . '/../models/empleado/empleado.class.php';
 require_once __DIR__ . '/../exceptions/exeptions.php';
 require_once __DIR__ . '/../../helpers/mail.php';
 require_once __DIR__ . '/../../helpers/emailTemplate.php';
+require_once __DIR__ . '/../../helpers/fileUploader.php';
 require_once __DIR__ . '/../validators/empleado.validator.php';
 
 class EmpleadoService {
-    public function __construct(private Empleado $empleados) {}
+    private string $rutaUploads;
 
-    public function delete(int $id, int $idEmpleadoActual): void {
+    public function __construct(private Empleado $empleados) {
+        $this->rutaUploads = __DIR__ . '/../../assets/images/uploads';
+    }
+
+    public function delete(mixed $id, mixed $idEmpleadoActual): void {
+        $id = $this->validarExistencia($id);
+        $idEmpleadoActual = EmpleadoValidator::validarIdEmpleado($idEmpleadoActual);
         $this->asegurarQueNoEsMiCuenta($id, $idEmpleadoActual, 'eliminar');
+
+        $empleado = $this->empleados->getOne($id);
 
         try {
             $this->empleados->delete($id);
+            if ($empleado && !empty($empleado['foto'])) {
+                @unlink($this->rutaUploads . '/' . $empleado['foto']);
+            }
         } catch (PDOException $e) {
-            if ($e->getCode() === '23503') {
+            if ($e->getCode() === '23503' || $e->getCode() === '23000') {
                 throw new ReglaException('No se puede eliminar: tiene registros relacionados.');
             }
             throw $e;
@@ -24,8 +36,20 @@ class EmpleadoService {
     public function create(array $data): void {
         EmpleadoValidator::validar($data);
 
-        $appMail = new Mail();
+        $uploader = new fileUploader();
+        $foto = $uploader->cargarArchivo('foto', $this->rutaUploads);
+        $data['foto'] = $foto;
 
+        try {
+            $this->persistirEmpleado(fn() => $this->empleados->create($data));
+        } catch (Throwable $e) {
+            if ($foto) {
+                @unlink($this->rutaUploads . '/' . $foto);
+            }
+            throw $e;
+        }
+
+        $appMail = new Mail();
         $enlaceLogin = 'http://' . $_SERVER['HTTP_HOST'] . '/admin/login.php';
         $html = plantillaBienvenida(
             $data['nombre'],
@@ -34,8 +58,6 @@ class EmpleadoService {
             $enlaceLogin
         );
 
-        $this->persistirEmpleado(fn() => $this->empleados->create($data));
-
         $appMail->enviar(
             [$data['correo']],
             'Bienvenido a Taller Mecánico - Datos de acceso',
@@ -43,22 +65,39 @@ class EmpleadoService {
         );
     }
 
-    public function update(int $id, array $data): void {
-        $id = EmpleadoValidator::validarIdEmpleado($id);
+    public function update(mixed $id, array $data): void {
+        $id = $this->validarExistencia($id);
         $empleado = $this->empleados->getOne($id);
 
         if (!$empleado) {
             throw new ReglaException('No se encontró el empleado seleccionado.');
         }
 
-        $data['foto'] = $data['foto'] ?? $empleado['foto'];
-        $data['id_rol'] = $data['id_rol'] ?? [];
+        $data['roles'] = $data['roles'] ?? [];
         EmpleadoValidator::validar($data, true);
 
-        $this->persistirEmpleado(fn() => $this->empleados->update($id, $data));
+        $uploader = new fileUploader();
+        $nuevaFoto = $uploader->cargarArchivo('foto', $this->rutaUploads);
+        $data['foto'] = $nuevaFoto ?? $empleado['foto'];
+
+        try {
+            $this->persistirEmpleado(fn() => $this->empleados->update($id, $data));
+
+            // Si subió una foto nueva, borrar la anterior del servidor
+            if ($nuevaFoto && !empty($empleado['foto'])) {
+                @unlink($this->rutaUploads . '/' . $empleado['foto']);
+            }
+        } catch (Throwable $e) {
+            if ($nuevaFoto) {
+                @unlink($this->rutaUploads . '/' . $nuevaFoto);
+            }
+            throw $e;
+        }
     }
 
-    public function alternarActivo(int $id, int $idEmpleadoActual): void {
+    public function alternarActivo(mixed $id, mixed $idEmpleadoActual): void {
+        $id = $this->validarExistencia($id);
+        $idEmpleadoActual = EmpleadoValidator::validarIdEmpleado($idEmpleadoActual);
         $this->asegurarQueNoEsMiCuenta($id, $idEmpleadoActual, 'desactivar');
         $this->empleados->toggleActivo($id);
     }
@@ -73,11 +112,27 @@ class EmpleadoService {
         try {
             $operacion();
         } catch (PDOException $e) {
-            if ($e->getCode() === '23505') {
-                throw new ReglaException('Ya existe un empleado con ese correo electrónico.');
+            if ($e->getCode() === '23000') {
+                $msg = $e->getMessage();
+                if (str_contains($msg, 'uq_rfc')) {
+                    throw new ReglaException('El RFC ya está registrado con otro empleado.');
+                }
+                if (str_contains($msg, 'uq_correo')) {
+                    throw new ReglaException('El correo electrónico ya está registrado.');
+                }
+                throw new ReglaException('Ya existe un empleado con esos datos.');
             }
-
             throw $e;
         }
+    }
+
+    public function validarExistencia(mixed $id): int {
+        $id = EmpleadoValidator::validarIdEmpleado($id);
+
+        if (!$this->empleados->existeEmpleado($id)) {
+            throw new ReglaException('No se puede completar la operación: el empleado no existe.');
+        }
+
+        return $id;
     }
 }
