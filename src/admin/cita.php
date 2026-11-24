@@ -33,12 +33,12 @@
                     $datos  = $_POST['data'];
                     $datos['accion'] = 'create';
                     $servicios = $appServicio->getAll();
-                    $vehiculos = $appVehiculo->getAll();
+                    $vehiculos = $appVehiculo->getAllConCliente();
                     include_once __DIR__ . '/../templates/admin/cita/_form.php';
                 }
             } else {
                 $servicios = $appServicio->getAll();
-                $vehiculos = $appVehiculo->getAll();
+                $vehiculos = $appVehiculo->getAllConCliente();
                 $datos['accion'] = 'create';
                 include_once __DIR__ . '/../templates/admin/cita/_form.php'; 
             }
@@ -52,7 +52,7 @@
             } else {
                 $datos = $app -> getOne($id);
                 $servicios = $appServicio->getAll();
-                $vehiculos = $appVehiculo->getAll();
+                $vehiculos = $appVehiculo->getAllConCliente();
                 $datos['id_servicios'] = $app->getServiciosByCita($id);
                 $datos['accion'] = 'update';
                 include_once __DIR__ . '/../templates/admin/cita/_form.php'; 

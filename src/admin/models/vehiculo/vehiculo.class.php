@@ -16,5 +16,19 @@ class Vehiculo extends genericCRUD {
         $data['matricula'] = strtoupper(trim($data['matricula']));
         return parent::create($data);
     }
+
+    function getAllConCliente() {
+        $sql = "SELECT v.*,
+                       c.nombre AS cliente_nombre,
+                       c.primer_apellido AS cliente_primer_apellido,
+                       c.segundo_apellido AS cliente_segundo_apellido,
+                       c.telefono AS cliente_telefono,
+                       c.correo AS cliente_correo
+                FROM vehiculo v
+                JOIN cliente c ON v.id_cliente = c.id_cliente
+                ORDER BY v.matricula";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

@@ -42,11 +42,27 @@
                     <option value="" disabled <?php echo empty($datos['id_vehiculo']) ? 'selected' : ''; ?>></option>
                     <?php foreach ($vehiculos as $vehiculo): ?>
                         <option value="<?php echo $vehiculo['id_vehiculo']; ?>"
+                            data-cliente-nombre="<?php echo htmlspecialchars(trim($vehiculo['cliente_nombre'] . ' ' . $vehiculo['cliente_primer_apellido'] . ' ' . ($vehiculo['cliente_segundo_apellido'] ?? '')), ENT_QUOTES, 'UTF-8'); ?>"
+                            data-cliente-telefono="<?php echo htmlspecialchars($vehiculo['cliente_telefono'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
+                            data-cliente-correo="<?php echo htmlspecialchars($vehiculo['cliente_correo'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
                             <?php echo (($datos['id_vehiculo'] ?? '') == $vehiculo['id_vehiculo']) ? 'selected' : ''; ?>>
-                            <?php echo ($vehiculo['matricula']); ?>
+                            <?php echo htmlspecialchars($vehiculo['matricula']); ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
+
+                <div id="cliente-vehiculo-info" class="alert alert-primary bg-primary-subtle border-0 mt-3 mb-0 d-none" role="status" aria-live="polite">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="flex-grow-1">
+                            <div class="text-uppercase text-primary fw-bold small mb-1">Cliente del vehículo</div>
+                            <div id="cliente-vehiculo-nombre" class="fw-semibold text-dark"></div>
+                            <div class="d-flex flex-wrap gap-3 mt-2 small text-secondary">
+                                <span id="cliente-vehiculo-telefono"></span>
+                                <span id="cliente-vehiculo-correo"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <div id="seccion_nuevo" class="d-none">
@@ -203,6 +219,29 @@
         const seccionNuevo = document.getElementById('seccion_nuevo');
         const selectVehiculo = document.getElementById('id_vehiculo');
         const inputsNuevos = document.querySelectorAll('.input-nuevo');
+        const clienteVehiculoInfo = document.getElementById('cliente-vehiculo-info');
+        const clienteVehiculoNombre = document.getElementById('cliente-vehiculo-nombre');
+        const clienteVehiculoTelefono = document.getElementById('cliente-vehiculo-telefono');
+        const clienteVehiculoCorreo = document.getElementById('cliente-vehiculo-correo');
+
+        function actualizarClienteVehiculo() {
+            const opcion = selectVehiculo.options[selectVehiculo.selectedIndex];
+            const nombre = opcion ? opcion.dataset.clienteNombre : '';
+
+            if (!nombre) {
+                clienteVehiculoInfo.classList.add('d-none');
+                return;
+            }
+
+            clienteVehiculoNombre.textContent = nombre;
+            clienteVehiculoTelefono.textContent = opcion.dataset.clienteTelefono
+                ? 'Teléfono: ' + opcion.dataset.clienteTelefono
+                : '';
+            clienteVehiculoCorreo.textContent = opcion.dataset.clienteCorreo
+                ? 'Correo: ' + opcion.dataset.clienteCorreo
+                : '';
+            clienteVehiculoInfo.classList.remove('d-none');
+        }
 
         function actualizarFormulario(tipo) {
             const esNuevo = tipo === 'nuevo';
@@ -210,6 +249,11 @@
             seccionExistente.classList.toggle('d-none', esNuevo);
             seccionNuevo.classList.toggle('d-none', !esNuevo);
             selectVehiculo.required = !esNuevo;
+            if (!esNuevo) {
+                actualizarClienteVehiculo();
+            } else {
+                clienteVehiculoInfo.classList.add('d-none');
+            }
 
             inputsNuevos.forEach(input => {
                 input.required = esNuevo;
@@ -221,6 +265,8 @@
                 actualizarFormulario(this.value);
             });
         });
+
+        selectVehiculo.addEventListener('change', actualizarClienteVehiculo);
 
         const radioSeleccionado = document.querySelector('input[name="tipo_registro"]:checked');
         actualizarFormulario(radioSeleccionado ? radioSeleccionado.value : 'existente');
