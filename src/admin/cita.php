@@ -63,6 +63,14 @@
             $citas = $app->getAll();
             include_once __DIR__ . '/../templates/admin/cita/index.php';
             break;
+        case 'GenerateOrder':
+            echo "Generando orden de trabajo para la cita con ID: $id";
+            $cita = $app->getOne($id);
+            echo '<pre>';
+            echo print_r($cita);
+            echo '</pre>';
+            die();
+            break;
         case 'read':
         default:
             $citas = $app->getAll();

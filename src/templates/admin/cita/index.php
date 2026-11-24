@@ -78,6 +78,10 @@ $estatusUI = [
                                     
                                     <td class="text-end pe-4 no-orden">
                                         <div class="d-inline-flex gap-1" role="group" aria-label="Acciones de cita">
+                                            <a href="cita.php?accion=GenerateOrder&id=<?php echo $cita['id_cita']; ?>" 
+                                                class="btn btn-outline-success btn-sm" title="Comprobante PDF">
+                                                <i class="fa-solid fa-check"></i>
+                                            </a>
                                             <a href="cita.php?accion=update&id=<?php echo $cita['id_cita']; ?>" 
                                                 class="btn btn-outline-primary btn-sm">
                                                 <i class="fa-solid fa-pen-to-square"></i> 
@@ -85,10 +89,6 @@ $estatusUI = [
                                             <a href="cita.php?accion=delete&id=<?php echo $cita['id_cita']; ?>" 
                                                 class="btn btn-outline-danger btn-sm">
                                                 <i class="fa-solid fa-xmark"></i>
-                                            </a>
-                                            <a href="cita.php?accion=pdf&id=<?php echo $cita['id_cita']; ?>" 
-                                                class="btn btn-outline-secondary btn-sm" title="Comprobante PDF">
-                                                <i class="fa-solid fa-file-pdf"></i>
                                             </a>
                                         </div>
                                     </td>

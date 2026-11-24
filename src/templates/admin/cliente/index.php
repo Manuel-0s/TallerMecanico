@@ -38,7 +38,7 @@
                                 <a href="cliente.php?accion=update&id=<?= $cliente['id_cliente']; ?>" 
                                     class="btn btn-outline-primary btn-sm" 
                                     title="Editar cliente">
-                                        <i class="fa-solid fa-pen-to-square"></i> Editar
+                                        <i class="fa-solid fa-pen-to-square"></i> 
                                 </a>
 
                                 <a href="cliente.php?accion=delete&id=<?= $cliente['id_cliente']; ?>" 
@@ -47,20 +47,29 @@
                                     data-titulo="¿Eliminar este cliente?"
                                     data-mensaje="Esta acción no se puede deshacer. Se eliminará toda la información asociada a este cliente."
                                     data-icono="error">
-                                        <i class="fa-solid fa-trash"></i> Eliminar
+                                        <i class="fa-solid fa-trash"></i> 
                                 </a>
-
-                                <a href="cliente.php?accion=historial&id_cliente=<?= $cliente['id_cliente']; ?>" 
-                                    class="btn btn-outline-secondary btn-sm" 
-                                    title="Ver historial de servicios">
-                                        <i class="fa-solid fa-clock-rotate-left"></i> Historial
-                                </a>
-
-                                <a href="cliente.php?accion=autos&id_cliente=<?= $cliente['id_cliente']; ?>" 
-                                    class="btn btn-outline-secondary btn-sm" 
-                                    title="Ver historial de servicios">
-                                        <i class="fa-solid fa-car"></i> Autos
-                                </a>
+                                <div class="dropdown d-inline-block">
+                                    <button class="btn btn-sm btn-ghost-secondary" 
+                                        type="button" 
+                                        data-bs-toggle="dropdown" 
+                                        aria-expanded="false"
+                                        aria-label="Más opciones">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">                                        
+                                        <a href="cliente.php?accion=autos&id_cliente=<?= $cliente['id_cliente']; ?>" 
+                                            class="btn btn-outline-secondary btn-sm dropdown-item" 
+                                            title="Ver historial de servicios">
+                                                <i class="fa-solid fa-car"></i> Ver autos
+                                        </a>
+                                        <a href="cliente.php?accion=historial&id_cliente=<?= $cliente['id_cliente']; ?>" 
+                                            class="btn btn-outline-secondary btn-sm dropdown-item" 
+                                            title="Ver historial de servicios">
+                                                <i class="fa-solid fa-clock-rotate-left"></i> Historial de servicios
+                                        </a>
+                                    </ul>
+                                </div>
                             </div>
                         </td>
                     </tr>
