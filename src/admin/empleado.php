@@ -30,7 +30,7 @@
                 } catch (ReglaException $e) {
                     $alerta = ['mensaje' => $e->getMessage(), 'tipo' => 'error'];
                     $datos = $data;
-                    $datos['id_roles'] = $data['roles'] ?? [];
+                    $datos['roles'] = $data['roles'] ?? [];
                     $datos['accion'] = 'create';
                     $roles = $appRol->getAll();
                     require_once __DIR__ . '/../templates/empleado/_form.php';
@@ -57,10 +57,7 @@
                     $datos['foto'] = $datos['foto'] ?? ($empleado['foto'] ?? null);
                     $datos['id'] = $id;
                     $datos['accion'] = 'update';
-                    $datos['id_roles'] = $data['roles'] ?? [];
-                    echo '<pre>';
-                    print_r($datos);
-                    echo '</pre>';
+                    $datos['roles'] = $appUsuarioRol->getRolesById($id);
                     $roles = $appRol->getAll();
                     require_once __DIR__ . '/../templates/empleado/_form.php';
                 }
@@ -69,11 +66,8 @@
                     $empleadoService->validarExistencia($id);
                     $datos = $app->getOne($id);
                     $roles = $appRol->getAll();
-                    $datos['id_roles'] = $appUsuarioRol->getRolesById($id);
+                    $datos['roles'] = $appUsuarioRol->getRolesById($id);
                     $datos['accion'] = 'update';
-                    echo '<pre>';
-                    print_r($datos);
-                    echo '</pre>';
                     require_once __DIR__ . '/../templates/empleado/_form.php';
                 }  catch (ReglaException $e) {
                     $alerta = ['mensaje' => $e->getMessage(), 'tipo' => 'error'];

@@ -26,7 +26,7 @@ class EmpleadoService {
                 @unlink($this->rutaUploads . '/' . $empleado['foto']);
             }
         } catch (PDOException $e) {
-            if ($e->getCode() === '23503' || $e->getCode() === '23000') {
+            if ($e->getCode() === '23503' || $e->getCode() === '23505') {
                 throw new ReglaException('No se puede eliminar: tiene registros relacionados.');
             }
             throw $e;
@@ -69,11 +69,6 @@ class EmpleadoService {
         $id = $this->validarExistencia($id);
         $empleado = $this->empleados->getOne($id);
 
-        if (!$empleado) {
-            throw new ReglaException('No se encontró el empleado seleccionado.');
-        }
-
-        $data['roles'] = $data['roles'] ?? [];
         EmpleadoValidator::validar($data, true);
 
         $uploader = new fileUploader();
@@ -83,7 +78,6 @@ class EmpleadoService {
         try {
             $this->persistirEmpleado(fn() => $this->empleados->update($id, $data));
 
-            // Si subió una foto nueva, borrar la anterior del servidor
             if ($nuevaFoto && !empty($empleado['foto'])) {
                 @unlink($this->rutaUploads . '/' . $empleado['foto']);
             }

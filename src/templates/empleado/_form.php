@@ -117,7 +117,7 @@
                         name="data[roles][]"
                         value="<?php echo $rolId; ?>"
                         id="rol-<?php echo $rolId; ?>"
-                        <?php echo in_array($rolId, $datos['id_roles'] ?? [], true) ? 'checked' : ''; ?>
+                        <?php echo in_array($rolId, $datos['roles'] ?? [], true) ? 'checked' : ''; ?>
                         >
                     <label class="btn btn-sm btn-outline-primary" for="rol-<?php echo $rolId; ?>">
                         <?php echo $rol['rol']; ?>
